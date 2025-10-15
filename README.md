@@ -1,5 +1,9 @@
 # WooCommerce ACP Instant Checkout
 
+## Download
+
+You can download the latest installable version of this plugin from the [Releases page](https://github.com/lmotwani/woocommerce-acp-instant-checkout/releases).
+
 **Contributors:** [Lokesh Motwani](https://lokeshmotwani.com)
 **Tags:** woocommerce, openai, chatgpt, acp, agentic-commerce, checkout
 **Requires at least:** 5.0
