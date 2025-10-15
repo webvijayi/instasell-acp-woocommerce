@@ -24,6 +24,15 @@ This plugin enables any WooCommerce-powered website to participate in **OpenAIâ€
 
 ## Installation
 
+### User Installation
+
+1.  Download the latest `.zip` file from the Releases page.
+2.  Upload the `.zip` file through the WordPress plugins screen.
+3.  Activate the plugin.
+4.  Go to **WooCommerce > Settings > ACP/ChatGPT** to configure the plugin.
+
+### Developer Setup
+
 1.  Clone this repository into your `/wp-content/plugins/` directory.
 2.  Run `composer install` to download the Stripe PHP SDK.
 3.  Activate the plugin through the 'Plugins' screen in WordPress.
