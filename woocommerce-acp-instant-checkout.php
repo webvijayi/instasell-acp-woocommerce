@@ -1,0 +1,142 @@
+<?php
+/**
+ * Plugin Name: WooCommerce ACP Instant Checkout
+ * Plugin URI:  http://lokeshmotwani.com/wp/plugin/openai-woo-acp
+ * Description: Enables OpenAI's Agentic Commerce Protocol (ACP) for any WooCommerce store, allowing "Buy it in ChatGPT" functionality.
+ * Version:     1.0.0
+ * Author:      Lokesh Motwani
+ * Author URI:  https://LokeshMotwani.com
+ * License:     Apache-2.0
+ * License URI: https://www.apache.org/licenses/LICENSE-2.0
+ * Text Domain: acp-woocommerce-ultraproduction
+ * Domain Path: /languages
+ * WC requires at least: 5.0
+ * WC tested up to: 8.0
+ */
+
+// Prevent direct access
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+// Main plugin class
+final class WooCommerce_ACP_Instant_Checkout {
+
+    /**
+     * Plugin instance.
+     *
+     * @var WooCommerce_ACP_Instant_Checkout
+     */
+    private static $instance;
+
+    /**
+     * Plugin version.
+     *
+     * @var string
+     */
+    public $version = '1.0.0';
+
+    /**
+     * Constructor.
+     */
+    private function __construct() {
+        $this->define_constants();
+        $this->includes();
+        $this->init_hooks();
+    }
+
+    /**
+     * Define constants.
+     */
+    private function define_constants() {
+        define('WCACP_PLUGIN_FILE', __FILE__);
+        define('WCACP_PLUGIN_DIR', plugin_dir_path(__FILE__));
+        define('WCACP_PLUGIN_URL', plugin_dir_url(__FILE__));
+        define('WCACP_VERSION', $this->version);
+    }
+
+    /**
+     * Include required files.
+     */
+    private function includes() {
+        require_once WCACP_PLUGIN_DIR . 'includes/class-wcacp-admin.php';
+        require_once WCACP_PLUGIN_DIR . 'includes/class-wcacp-api-endpoints.php';
+        require_once WCACP_PLUGIN_DIR . 'includes/class-wcacp-checkout-session.php';
+        require_once WCACP_PLUGIN_DIR . 'includes/class-wcacp-product-feed.php';
+        require_once WCACP_PLUGIN_DIR . 'includes/class-wcacp-post-types.php';
+    }
+
+    /**
+     * Initialize hooks.
+     */
+    private function init_hooks() {
+        add_action('plugins_loaded', array($this, 'on_plugins_loaded'));
+        add_action('init', array($this, 'load_textdomain'));
+    }
+
+    /**
+     * Load plugin textdomain.
+     */
+    public function load_textdomain() {
+        load_plugin_textdomain('acp-woocommerce-ultraproduction', false, dirname(plugin_basename(WCACP_PLUGIN_FILE)) . '/languages/');
+    }
+
+    /**
+     * On plugins loaded.
+     */
+    public function on_plugins_loaded() {
+        // Initialization
+        new WCACP_Admin();
+        new WCACP_Product_Feed();
+
+        // Register API endpoints
+        $api_endpoints = new WCACP_API_Endpoints();
+        add_action('rest_api_init', function () use ($api_endpoints) {
+            foreach ($api_endpoints->get_endpoints() as $endpoint) {
+                register_rest_route('wcacp/v1', $endpoint['route'], $endpoint);
+            }
+        });
+    }
+
+    /**
+     * Get the plugin instance.
+     *
+     * @return WooCommerce_ACP_Instant_Checkout
+     */
+    public static function get_instance() {
+        if (null === self::$instance) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+
+    /**
+     * Get the plugin URL.
+     *
+     * @return string
+     */
+    public function get_plugin_url() {
+        return WCACP_PLUGIN_URL;
+    }
+
+    /**
+     * Get the plugin version.
+     *
+     * @return string
+     */
+    public function get_version() {
+        return $this->version;
+    }
+}
+
+/**
+ * Returns the main instance of WooCommerce_ACP_Instant_Checkout.
+ *
+ * @return WooCommerce_ACP_Instant_Checkout
+ */
+function woocommerce_acp_instant_checkout() {
+    return WooCommerce_ACP_Instant_Checkout::get_instance();
+}
+
+// Initialize the plugin
+woocommerce_acp_instant_checkout();

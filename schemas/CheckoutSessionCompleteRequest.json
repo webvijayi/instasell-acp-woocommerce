@@ -1,0 +1,27 @@
+{
+    "title": "CheckoutSessionCompleteRequest",
+    "description": "Request schema for completing a checkout session in the Agentic Commerce Protocol",
+    "type": "object",
+    "properties": {
+        "payment_data": {
+            "type": "object",
+            "properties": {
+                "provider": {
+                    "type": "string",
+                    "enum": ["stripe"],
+                    "description": "Payment provider name"
+                },
+                "payment_token": {
+                    "type": "string",
+                    "description": "Payment token from the provider"
+                }
+            },
+            "required": ["provider", "payment_token"]
+        },
+        "fulfillment_option_id": {
+            "type": "string",
+            "description": "Selected fulfillment option ID"
+        }
+    },
+    "required": ["payment_data"]
+}

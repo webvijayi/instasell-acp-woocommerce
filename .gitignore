@@ -1,0 +1,22 @@
+# WordPress
+/wp-admin/
+/wp-content/
+/wp-includes/
+/wp-config.php
+/wp-settings.php
+/xmlrpc.php
+/index.php
+/license.txt
+/readme.html
+
+# Composer
+/vendor/
+/composer.lock
+
+# Node
+/node_modules/
+npm-debug.log
+
+# OS
+.DS_Store
+Thumbs.db

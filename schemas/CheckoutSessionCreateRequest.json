@@ -1,0 +1,62 @@
+{
+    "title": "CheckoutSessionCreateRequest",
+    "description": "Request schema for creating a checkout session in the Agentic Commerce Protocol",
+    "type": "object",
+    "properties": {
+        "items": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Unique identifier for the item"
+                    },
+                    "quantity": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "description": "Quantity of the item"
+                    }
+                },
+                "required": ["id", "quantity"]
+            },
+            "minItems": 1,
+            "description": "List of items to purchase"
+        },
+        "fulfillment_address": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "Full name for delivery"
+                },
+                "line_one": {
+                    "type": "string",
+                    "description": "Primary address line"
+                },
+                "line_two": {
+                    "type": "string",
+                    "description": "Secondary address line (optional)"
+                },
+                "city": {
+                    "type": "string",
+                    "description": "City"
+                },
+                "state": {
+                    "type": "string",
+                    "description": "State or province"
+                },
+                "country": {
+                    "type": "string",
+                    "description": "Country code (ISO 3166-1 alpha-2)"
+                },
+                "postal_code": {
+                    "type": "string",
+                    "description": "Postal/ZIP code"
+                }
+            },
+            "required": ["name", "line_one", "city", "state", "country", "postal_code"]
+        }
+    },
+    "required": ["items"]
+}

@@ -1,0 +1,29 @@
+/* WooCommerce ACP Instant Checkout Admin Styles */
+
+.wcacp-admin-info {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+}
+
+.wcacp-admin-info h3 {
+    margin-top: 0;
+    color: #495057;
+}
+
+.wcacp-admin-info code {
+    background: #fff;
+    padding: 2px 6px;
+    border-radius: 3px;
+    border: 1px solid #dee2e6;
+}
+
+.wcacp-admin-info p {
+    margin-bottom: 10px;
+}
+
+.wcacp-settings-section {
+    margin-bottom: 20px;
+}
