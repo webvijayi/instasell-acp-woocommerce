@@ -34,6 +34,12 @@ This plugin enables any WooCommerce-powered website to participate in **OpenAIâ€
 2.  Upload the `.zip` file through the WordPress plugins screen.
 3.  Activate the plugin.
 4.  Go to **WooCommerce > Settings > ACP/ChatGPT** to configure the plugin.
+5.  Apply for OpenAI ACP approval at https://openai.com/index/buy-it-in-chatgpt/.
+6.  (After approval) Copy your ACP OpenAI API Key from the OpenAI ACP dashboard.
+7.  Enable the ACP API and paste your OpenAI API Key in the settings above.
+8.  Enter your Stripe API keys for payment processing.
+9.  Submit your Product Feed URL to OpenAI for indexing if required or requested.
+10. Test and complete your integration using OpenAI's developer tools or ChatGPT.
 
 ### Developer Setup
 

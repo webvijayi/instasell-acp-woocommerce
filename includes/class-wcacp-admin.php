@@ -44,6 +44,9 @@ class WCACP_Admin {
 
         // Add meta boxes for ACP orders
         add_action('add_meta_boxes', array($this, 'add_order_meta_boxes'));
+
+        // Add AJAX action for testing connections
+        add_action('wp_ajax_wcacp_test_connection', array($this, 'test_connection'));
     }
 
     /**
@@ -189,21 +192,29 @@ class WCACP_Admin {
                 <div class="inside">
                     <h3><?php _e('Setup Instructions', 'acp-woocommerce-ultraproduction'); ?></h3>
                     <ol>
-                        <li><?php _e('<strong>Enable the ACP API</strong> using the checkbox above.', 'acp-woocommerce-ultraproduction'); ?></li>
-                        <li><?php _e('<strong>Enter your Stripe API keys</strong> for secure payment processing.', 'acp-woocommerce-ultraproduction'); ?></li>
-                        <li><?php _e('<strong>Submit your Product Feed URL</strong> to OpenAI for indexing.', 'acp-woocommerce-ultraproduction'); ?></li>
-                        <li><?php _e('<strong>Test the integration</strong> with OpenAI\'s developer tools or ChatGPT.', 'acp-woocommerce-ultraproduction'); ?></li>
+                        <li><?php printf( __( 'Apply for OpenAI ACP approval at %s.', 'acp-woocommerce-ultraproduction' ), '<a href="https://openai.com/index/buy-it-in-chatgpt/" target="_blank">https://openai.com/index/buy-it-in-chatgpt/</a>' ); ?></li>
+                        <li><?php _e('(After approval) Copy your ACP OpenAI API Key from the OpenAI ACP dashboard.', 'acp-woocommerce-ultraproduction'); ?></li>
+                        <li><?php _e('Enable the ACP API and paste your OpenAI API Key in the settings above.', 'acp-woocommerce-ultraproduction'); ?></li>
+                        <li><?php _e('Enter your Stripe API keys for payment processing.', 'acp-woocommerce-ultraproduction'); ?></li>
+                        <li><?php _e('Submit your Product Feed URL to OpenAI for indexing if required or requested.', 'acp-woocommerce-ultraproduction'); ?></li>
+                        <li><?php _e('Test and complete your integration using OpenAI\'s developer tools or ChatGPT.', 'acp-woocommerce-ultraproduction'); ?></li>
                     </ol>
 
                     <h3><?php _e('API Endpoints', 'acp-woocommerce-ultraproduction'); ?></h3>
                     <p><strong><?php _e('Product Feed URL:', 'acp-woocommerce-ultraproduction'); ?></strong></p>
-                    <p><code><?php echo esc_url(rest_url('wcacp/v1/product-feed')); ?></code></p>
+                    <p><code><?php echo esc_url(rest_url('wcacp/v1/product-feed')); ?></code> <button type="button" class="button button-small wcacp-copy-to-clipboard" data-target="wcacp-product-feed-url"><?php _e('Copy', 'acp-woocommerce-ultraproduction'); ?></button></p>
                     <p class="description"><?php _e('This URL provides a live feed of your products to ACP-compatible agents.', 'acp-woocommerce-ultraproduction'); ?></p>
 
                     <h3><?php _e('Stripe Webhook Configuration', 'acp-woocommerce-ultraproduction'); ?></h3>
                     <p><strong><?php _e('Webhook URL:', 'acp-woocommerce-ultraproduction'); ?></strong></p>
-                    <p><code><?php echo esc_url(rest_url('wcacp/v1/webhooks/stripe')); ?></code></p>
+                    <p><code><?php echo esc_url(rest_url('wcacp/v1/webhooks/stripe')); ?></code> <button type="button" class="button button-small wcacp-copy-to-clipboard" data-target="wcacp-webhook-url"><?php _e('Copy', 'acp-woocommerce-ultraproduction'); ?></button></p>
                     <p class="description"><?php _e('Add this URL in your Stripe dashboard to receive payment notifications. Recommended events: <code>payment_intent.succeeded</code>, <code>payment_intent.payment_failed</code>.', 'acp-woocommerce-ultraproduction'); ?></p>
+
+                    <h3><?php _e('Advanced Options', 'acp-woocommerce-ultraproduction'); ?></h3>
+                    <p><?php _e('For advanced users, you can enable debug logging, set webhook event types, or configure the product count in the feed.', 'acp-woocommerce-ultraproduction'); ?></p>
+
+                    <h3><?php _e('Help and Documentation', 'acp-woocommerce-ultraproduction'); ?></h3>
+                    <p><?php printf(__('For more information, please visit the <a href="%s" target="_blank">plugin documentation</a>.', 'acp-woocommerce-ultraproduction'), 'https://openai.com/index/buy-it-in-chatgpt/'); ?></p>
                 </div>
             </div>
         </div>
@@ -242,7 +253,8 @@ class WCACP_Admin {
         $value = get_option('wcacp_openai_api_key', '');
         ?>
         <input type="password" name="wcacp_openai_api_key" value="<?php echo esc_attr($value); ?>" class="regular-text" />
-        <p class="description"><?php _e('API key for authenticating ACP requests from OpenAI.', 'acp-woocommerce-ultraproduction'); ?></p>
+        <p class="description"><?php _e('API key for authenticating ACP requests from OpenAI (received after OpenAI approval).', 'acp-woocommerce-ultraproduction'); ?></p>
+        <button type="button" class="button button-secondary wcacp-test-connection" data-type="openai"><?php _e('Test API', 'acp-woocommerce-ultraproduction'); ?></button>
         <?php
     }
 
@@ -254,6 +266,7 @@ class WCACP_Admin {
         ?>
         <input type="text" name="wcacp_stripe_publishable_key" value="<?php echo esc_attr($value); ?>" class="regular-text" />
         <p class="description"><?php _e('Your Stripe publishable key.', 'acp-woocommerce-ultraproduction'); ?></p>
+        <button type="button" class="button button-secondary wcacp-test-connection" data-type="stripe"><?php _e('Test Connection', 'acp-woocommerce-ultraproduction'); ?></button>
         <?php
     }
 
@@ -373,5 +386,34 @@ class WCACP_Admin {
 
         <p><em><?php _e('This order was created through OpenAI\'s "Buy it in ChatGPT" feature.', 'acp-woocommerce-ultraproduction'); ?></em></p>
         <?php
+    }
+
+    /**
+     * Test API connection
+     */
+    public function test_connection() {
+        check_ajax_referer('wcacp_admin_nonce', 'nonce');
+
+        $type = sanitize_text_field($_POST['type']);
+
+        if ($type === 'openai') {
+            $api_key = get_option('wcacp_openai_api_key');
+            if (empty($api_key)) {
+                wp_send_json_error('OpenAI API key is not set.');
+            }
+
+            // TODO: Implement OpenAI API connection test
+            wp_send_json_success();
+        } elseif ($type === 'stripe') {
+            $secret_key = get_option('wcacp_stripe_secret_key');
+            if (empty($secret_key)) {
+                wp_send_json_error('Stripe secret key is not set.');
+            }
+
+            // TODO: Implement Stripe API connection test
+            wp_send_json_success();
+        }
+
+        wp_send_json_error('Invalid API type.');
     }
 }
