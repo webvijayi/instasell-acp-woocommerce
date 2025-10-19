@@ -323,6 +323,39 @@ class WCACP_Checkout_Session {
     /**
      * Get tax rate for product and address
      */
+    private function get_tax_rate($product, $request_data) {
+        // Default tax rate
+        $tax_rate = 0;
+
+        // If address is provided, calculate tax based on location
+        if (isset($request_data['fulfillment_address'])) {
+            $address = $request_data['fulfillment_address'];
+            $country = isset($address['country']) ? $address['country'] : '';
+            $state = isset($address['state']) ? $address['state'] : '';
+            $postcode = isset($address['postal_code']) ? $address['postal_code'] : '';
+            $city = isset($address['city']) ? $address['city'] : '';
+
+            // Get WooCommerce tax rates
+            $tax_class = $product->get_tax_class();
+            $tax_rates = WC_Tax::find_rates(array(
+                'country' => $country,
+                'state' => $state,
+                'postcode' => $postcode,
+                'city' => $city,
+                'tax_class' => $tax_class,
+            ));
+
+            if (!empty($tax_rates)) {
+                $tax_rate = array_sum(wp_list_pluck($tax_rates, 'rate'));
+            }
+        }
+
+        return $tax_rate;
+    }
+
+    /**
+     * Get session post by session ID
+     */
     private function get_session_post($session_id) {
         $posts = get_posts(array(
             'post_type' => 'acp_checkout_session',

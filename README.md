@@ -28,25 +28,52 @@ This plugin enables any WooCommerce-powered website to participate in **OpenAIâ€
 
 ## Installation
 
-### User Installation
+### For End Users (No Composer Required!)
 
-1.  Download the latest `.zip` file from the Releases page.
-2.  Upload the `.zip` file through the WordPress plugins screen.
-3.  Activate the plugin.
-4.  Go to **WooCommerce > Settings > ACP/ChatGPT** to configure the plugin.
-5.  Apply for OpenAI ACP approval at https://openai.com/index/buy-it-in-chatgpt/.
-6.  (After approval) Copy your ACP OpenAI API Key from the OpenAI ACP dashboard.
-7.  Enable the ACP API and paste your OpenAI API Key in the settings above.
-8.  Enter your Stripe API keys for payment processing.
-9.  Submit your Product Feed URL to OpenAI for indexing if required or requested.
-10. Test and complete your integration using OpenAI's developer tools or ChatGPT.
+The plugin comes pre-packaged with all dependencies. Just install and activate:
+
+1.  Download the latest `.zip` file from the [Releases page](https://github.com/lmotwani/woocommerce-acp-instant-checkout/releases).
+2.  In WordPress admin, go to **Plugins > Add New > Upload Plugin**
+3.  Choose the downloaded `.zip` file and click **Install Now**
+4.  Click **Activate Plugin**
+5.  Go to **WooCommerce > Settings > ACP/ChatGPT** to configure the plugin.
+6.  Apply for OpenAI ACP approval at https://openai.com/index/buy-it-in-chatgpt/
+7.  (After approval) Copy your ACP OpenAI API Key from the OpenAI ACP dashboard
+8.  Enable the ACP API and paste your OpenAI API Key in the settings
+9.  Enter your Stripe API keys for payment processing
+10. Submit your Product Feed URL to OpenAI for indexing
+11. Test your integration using OpenAI's developer tools or ChatGPT
+
+See [INSTALL.md](INSTALL.md) for detailed installation instructions.
 
 ### Developer Setup
 
 1.  Clone this repository into your `/wp-content/plugins/` directory.
-2.  Run `composer install` to download the Stripe PHP SDK.
+2.  Run `composer install` to download dependencies (Stripe PHP SDK, JSON Schema validator).
 3.  Activate the plugin through the 'Plugins' screen in WordPress.
 4.  Go to **WooCommerce > Settings > ACP/ChatGPT** to configure the plugin.
+
+### Building for Distribution
+
+To create a production-ready zip file for distribution:
+
+**Linux/Mac:**
+```bash
+chmod +x build.sh
+./build.sh
+```
+
+**Windows:**
+```cmd
+build.bat
+```
+
+This will:
+- Install production dependencies (without dev packages)
+- Create an optimized autoloader
+- Generate `woocommerce-acp-instant-checkout.zip` with all necessary files including the `vendor/` directory
+
+The generated zip can be uploaded directly to WordPress without requiring users to run Composer.
 
 ## Development
 
@@ -57,3 +84,11 @@ To contribute to this plugin, please fork the repository and submit a pull reque
 *   Follow the [WordPress Coding Standards](https://developer.wordpress.org/coding-standards/).
 *   Ensure all new code is well-documented.
 *   Test your changes thoroughly before submitting a pull request.
+
+## Resources
+
+*   **Agentic Commerce Protocol**: https://agenticcommerce.dev/
+*   **ACP Specification**: https://github.com/agentic-commerce-protocol/agentic-commerce-protocol
+*   **OpenAI ACP Documentation**: https://developers.openai.com/commerce
+*   **Stripe ACP Integration**: https://docs.stripe.com/agentic-commerce
+*   **Apply for ChatGPT Integration**: https://openai.com/index/buy-it-in-chatgpt/

@@ -59,6 +59,11 @@ final class WooCommerce_ACP_Instant_Checkout {
      * Include required files.
      */
     private function includes() {
+        // Load Composer autoloader if available
+        if (file_exists(WCACP_PLUGIN_DIR . 'vendor/autoload.php')) {
+            require_once WCACP_PLUGIN_DIR . 'vendor/autoload.php';
+        }
+
         require_once WCACP_PLUGIN_DIR . 'includes/class-wcacp-admin.php';
         require_once WCACP_PLUGIN_DIR . 'includes/class-wcacp-api-endpoints.php';
         require_once WCACP_PLUGIN_DIR . 'includes/class-wcacp-checkout-session.php';
@@ -126,6 +131,61 @@ final class WooCommerce_ACP_Instant_Checkout {
      */
     public function get_version() {
         return $this->version;
+    }
+
+    /**
+     * Get the plugin directory.
+     *
+     * @return string
+     */
+    public function get_plugin_dir() {
+        return WCACP_PLUGIN_DIR;
+    }
+
+    /**
+     * Validate ACP request.
+     *
+     * @param WP_REST_Request $request The request object.
+     * @return bool|WP_Error
+     */
+    public function validate_acp_request($request) {
+        // Check if ACP is enabled
+        if (get_option('wcacp_enable_acp') !== 'yes') {
+            return new WP_Error('acp_disabled', 'ACP is not enabled', array('status' => 403));
+        }
+
+        // Validate OpenAI API key if provided in headers
+        $api_key = $request->get_header('X-OpenAI-API-Key');
+        if ($api_key) {
+            $stored_key = get_option('wcacp_openai_api_key');
+            if ($api_key !== $stored_key) {
+                return new WP_Error('invalid_api_key', 'Invalid API key', array('status' => 401));
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Log ACP request for debugging.
+     *
+     * @param string $endpoint The endpoint being called.
+     * @param array  $request_data The request data.
+     * @param array  $response_data The response data (optional).
+     */
+    public function log_acp_request($endpoint, $request_data, $response_data = null) {
+        if (get_option('wcacp_enable_logging') !== 'yes') {
+            return;
+        }
+
+        $log_entry = array(
+            'timestamp' => current_time('mysql'),
+            'endpoint' => $endpoint,
+            'request' => $request_data,
+            'response' => $response_data,
+        );
+
+        error_log('ACP Request: ' . wp_json_encode($log_entry));
     }
 }
 
