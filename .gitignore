@@ -27,9 +27,12 @@ INSTALL.md
 QUICKSTART.md
 RELEASE-CHECKLIST.md
 PRE-PUSH-CHECKLIST.md
+LOCAL-SETUP.md
 build.sh
 build.bat
 build-exclude.txt
 .distignore
 composer-setup.php
 composer.phar
+build/
+*.zip
