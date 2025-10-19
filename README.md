@@ -1,5 +1,9 @@
 # WooCommerce ACP Instant Checkout
 
+## Download
+
+Download the latest installable version from the [Releases page](https://github.com/lmotwani/woocommerce-acp-instant-checkout/releases).
+
 **Contributors:** [Lokesh Motwani](https://lokeshmotwani.com)
 **Tags:** woocommerce, openai, chatgpt, acp, agentic-commerce, checkout
 **Requires at least:** 5.0
@@ -28,7 +32,7 @@ This plugin enables any WooCommerce-powered website to participate in **OpenAIâ€
 
 The plugin comes pre-packaged with all dependencies. To install:
 
-1.  Build the plugin zip file (see "Building for Distribution" below) or get it from a release
+1.  Download the latest `.zip` file from the [Releases page](https://github.com/lmotwani/woocommerce-acp-instant-checkout/releases)
 2.  In WordPress admin, go to **Plugins > Add New > Upload Plugin**
 3.  Choose the `.zip` file and click **Install Now**
 4.  Click **Activate Plugin**
