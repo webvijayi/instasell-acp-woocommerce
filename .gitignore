@@ -20,3 +20,16 @@ npm-debug.log
 # OS
 .DS_Store
 Thumbs.db
+
+# Build and documentation files (not needed in repo)
+BUILD-GUIDE.md
+INSTALL.md
+QUICKSTART.md
+RELEASE-CHECKLIST.md
+PRE-PUSH-CHECKLIST.md
+build.sh
+build.bat
+build-exclude.txt
+.distignore
+composer-setup.php
+composer.phar
