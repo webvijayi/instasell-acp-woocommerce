@@ -54,8 +54,8 @@ class WCACP_Admin {
      */
     public function add_admin_menu() {
         add_options_page(
-            __('ACP Instant Checkout', 'acp-woocommerce-ultraproduction'),
-            __('ACP Instant Checkout', 'acp-woocommerce-ultraproduction'),
+            __('ACP Instant Checkout', 'woocommerce-acp-instant-checkout'),
+            __('ACP Instant Checkout', 'woocommerce-acp-instant-checkout'),
             'manage_options',
             'wcacp-settings',
             array($this, 'settings_page')
@@ -115,14 +115,14 @@ class WCACP_Admin {
         // Add settings sections
         add_settings_section(
             'wcacp_api_settings',
-            __('API Settings', 'acp-woocommerce-ultraproduction'),
+            __('API Settings', 'woocommerce-acp-instant-checkout'),
             array($this, 'api_settings_section_callback'),
             'wcacp_settings'
         );
 
         add_settings_section(
             'wcacp_payment_settings',
-            __('Payment Settings', 'acp-woocommerce-ultraproduction'),
+            __('Payment Settings', 'woocommerce-acp-instant-checkout'),
             array($this, 'payment_settings_section_callback'),
             'wcacp_settings'
         );
@@ -130,7 +130,7 @@ class WCACP_Admin {
         // Add settings fields
         add_settings_field(
             'wcacp_api_enabled',
-            __('Enable ACP API', 'acp-woocommerce-ultraproduction'),
+            __('Enable ACP API', 'woocommerce-acp-instant-checkout'),
             array($this, 'api_enabled_field_callback'),
             'wcacp_settings',
             'wcacp_api_settings'
@@ -138,7 +138,7 @@ class WCACP_Admin {
 
         add_settings_field(
             'wcacp_openai_api_key',
-            __('OpenAI API Key', 'acp-woocommerce-ultraproduction'),
+            __('OpenAI API Key', 'woocommerce-acp-instant-checkout'),
             array($this, 'openai_api_key_field_callback'),
             'wcacp_settings',
             'wcacp_api_settings'
@@ -146,7 +146,7 @@ class WCACP_Admin {
 
         add_settings_field(
             'wcacp_stripe_publishable_key',
-            __('Stripe Publishable Key', 'acp-woocommerce-ultraproduction'),
+            __('Stripe Publishable Key', 'woocommerce-acp-instant-checkout'),
             array($this, 'stripe_publishable_key_field_callback'),
             'wcacp_settings',
             'wcacp_payment_settings'
@@ -154,7 +154,7 @@ class WCACP_Admin {
 
         add_settings_field(
             'wcacp_stripe_secret_key',
-            __('Stripe Secret Key', 'acp-woocommerce-ultraproduction'),
+            __('Stripe Secret Key', 'woocommerce-acp-instant-checkout'),
             array($this, 'stripe_secret_key_field_callback'),
             'wcacp_settings',
             'wcacp_payment_settings'
@@ -162,7 +162,7 @@ class WCACP_Admin {
 
         add_settings_field(
             'wcacp_webhook_secret',
-            __('Stripe Webhook Secret', 'acp-woocommerce-ultraproduction'),
+            __('Stripe Webhook Secret', 'woocommerce-acp-instant-checkout'),
             array($this, 'webhook_secret_field_callback'),
             'wcacp_settings',
             'wcacp_payment_settings'
@@ -175,9 +175,10 @@ class WCACP_Admin {
     public function settings_page() {
         ?>
         <div class="wrap">
-            <h1><?php _e('ChatGPT Instant Checkout - ACP Settings', 'acp-woocommerce-ultraproduction'); ?></h1>
+            <h1><?php esc_html_e('ChatGPT Instant Checkout - ACP Settings', 'woocommerce-acp-instant-checkout'); ?></h1>
 
-            <p><?php printf(__('Configure your store for OpenAI\'s Agentic Commerce Protocol (ACP) to enable "Buy it in ChatGPT". <a href="%s" target="_blank">Learn more about ACP</a>.', 'acp-woocommerce-ultraproduction'), 'https://openai.com/index/buy-it-in-chatgpt/'); ?></p>
+            /* translators: %s: URL to OpenAI ACP documentation */
+            <p><?php printf(esc_html__('Configure your store for OpenAI\'s Agentic Commerce Protocol (ACP) to enable "Buy it in ChatGPT". <a href="%s" target="_blank">Learn more about ACP</a>.', 'woocommerce-acp-instant-checkout'), 'https://openai.com/index/buy-it-in-chatgpt/'); ?></p>
 
             <form method="post" action="options.php">
                 <?php
@@ -188,33 +189,35 @@ class WCACP_Admin {
             </form>
 
             <div class="wcacp-admin-info postbox">
-                <h2 class="hndle"><span><?php _e('Setup and Configuration', 'acp-woocommerce-ultraproduction'); ?></span></h2>
+                <h2 class="hndle"><span><?php esc_html_e('Setup and Configuration', 'woocommerce-acp-instant-checkout'); ?></span></h2>
                 <div class="inside">
-                    <h3><?php _e('Setup Instructions', 'acp-woocommerce-ultraproduction'); ?></h3>
+                    <h3><?php esc_html_e('Setup Instructions', 'woocommerce-acp-instant-checkout'); ?></h3>
                     <ol>
-                        <li><?php printf( __( 'Apply for OpenAI ACP approval at %s.', 'acp-woocommerce-ultraproduction' ), '<a href="https://openai.com/index/buy-it-in-chatgpt/" target="_blank">https://openai.com/index/buy-it-in-chatgpt/</a>' ); ?></li>
-                        <li><?php _e('(After approval) Copy your ACP OpenAI API Key from the OpenAI ACP dashboard.', 'acp-woocommerce-ultraproduction'); ?></li>
-                        <li><?php _e('Enable the ACP API and paste your OpenAI API Key in the settings above.', 'acp-woocommerce-ultraproduction'); ?></li>
-                        <li><?php _e('Enter your Stripe API keys for payment processing.', 'acp-woocommerce-ultraproduction'); ?></li>
-                        <li><?php _e('Submit your Product Feed URL to OpenAI for indexing if required or requested.', 'acp-woocommerce-ultraproduction'); ?></li>
-                        <li><?php _e('Test and complete your integration using OpenAI\'s developer tools or ChatGPT.', 'acp-woocommerce-ultraproduction'); ?></li>
+                        /* translators: %s: URL to plugin documentation */
+                        <li><?php printf( esc_html__( 'Apply for OpenAI ACP approval at %s.', 'woocommerce-acp-instant-checkout' ), '<a href="https://openai.com/index/buy-it-in-chatgpt/" target="_blank">https://openai.com/index/buy-it-in-chatgpt/</a>' ); ?></li>
+                        <li><?php esc_html_e('(After approval) Copy your ACP OpenAI API Key from the OpenAI ACP dashboard.', 'woocommerce-acp-instant-checkout'); ?></li>
+                        <li><?php esc_html_e('Enable the ACP API and paste your OpenAI API Key in the settings above.', 'woocommerce-acp-instant-checkout'); ?></li>
+                        <li><?php esc_html_e('Enter your Stripe API keys for payment processing.', 'woocommerce-acp-instant-checkout'); ?></li>
+                        <li><?php esc_html_e('Submit your Product Feed URL to OpenAI for indexing if required or requested.', 'woocommerce-acp-instant-checkout'); ?></li>
+                        <li><?php esc_html_e('Test and complete your integration using OpenAI\'s developer tools or ChatGPT.', 'woocommerce-acp-instant-checkout'); ?></li>
                     </ol>
 
-                    <h3><?php _e('API Endpoints', 'acp-woocommerce-ultraproduction'); ?></h3>
-                    <p><strong><?php _e('Product Feed URL:', 'acp-woocommerce-ultraproduction'); ?></strong></p>
-                    <p><code><?php echo esc_url(rest_url('wcacp/v1/product-feed')); ?></code> <button type="button" class="button button-small wcacp-copy-to-clipboard" data-target="wcacp-product-feed-url"><?php _e('Copy', 'acp-woocommerce-ultraproduction'); ?></button></p>
-                    <p class="description"><?php _e('This URL provides a live feed of your products to ACP-compatible agents.', 'acp-woocommerce-ultraproduction'); ?></p>
+                    <h3><?php esc_html_e('API Endpoints', 'woocommerce-acp-instant-checkout'); ?></h3>
+                    <p><strong><?php esc_html_e('Product Feed URL:', 'woocommerce-acp-instant-checkout'); ?></strong></p>
+                    <p><code><?php echo esc_url(rest_url('wcacp/v1/product-feed')); ?></code> <button type="button" class="button button-small wcacp-copy-to-clipboard" data-target="wcacp-product-feed-url"><?php esc_html_e('Copy', 'woocommerce-acp-instant-checkout'); ?></button></p>
+                    <p class="description"><?php esc_html_e('This URL provides a live feed of your products to ACP-compatible agents.', 'woocommerce-acp-instant-checkout'); ?></p>
 
-                    <h3><?php _e('Stripe Webhook Configuration', 'acp-woocommerce-ultraproduction'); ?></h3>
-                    <p><strong><?php _e('Webhook URL:', 'acp-woocommerce-ultraproduction'); ?></strong></p>
-                    <p><code><?php echo esc_url(rest_url('wcacp/v1/webhooks/stripe')); ?></code> <button type="button" class="button button-small wcacp-copy-to-clipboard" data-target="wcacp-webhook-url"><?php _e('Copy', 'acp-woocommerce-ultraproduction'); ?></button></p>
-                    <p class="description"><?php _e('Add this URL in your Stripe dashboard to receive payment notifications. Recommended events: <code>payment_intent.succeeded</code>, <code>payment_intent.payment_failed</code>.', 'acp-woocommerce-ultraproduction'); ?></p>
+                    <h3><?php esc_html_e('Stripe Webhook Configuration', 'woocommerce-acp-instant-checkout'); ?></h3>
+                    <p><strong><?php esc_html_e('Webhook URL:', 'woocommerce-acp-instant-checkout'); ?></strong></p>
+                    <p><code><?php echo esc_url(rest_url('wcacp/v1/webhooks/stripe')); ?></code> <button type="button" class="button button-small wcacp-copy-to-clipboard" data-target="wcacp-webhook-url"><?php esc_html_e('Copy', 'woocommerce-acp-instant-checkout'); ?></button></p>
+                    <p class="description"><?php esc_html_e('Add this URL in your Stripe dashboard to receive payment notifications. Recommended events: <code>payment_intent.succeeded</code>, <code>payment_intent.payment_failed</code>.', 'woocommerce-acp-instant-checkout'); ?></p>
 
-                    <h3><?php _e('Advanced Options', 'acp-woocommerce-ultraproduction'); ?></h3>
-                    <p><?php _e('For advanced users, you can enable debug logging, set webhook event types, or configure the product count in the feed.', 'acp-woocommerce-ultraproduction'); ?></p>
+                    <h3><?php esc_html_e('Advanced Options', 'woocommerce-acp-instant-checkout'); ?></h3>
+                    <p><?php esc_html_e('For advanced users, you can enable debug logging, set webhook event types, or configure the product count in the feed.', 'woocommerce-acp-instant-checkout'); ?></p>
 
-                    <h3><?php _e('Help and Documentation', 'acp-woocommerce-ultraproduction'); ?></h3>
-                    <p><?php printf(__('For more information, please visit the <a href="%s" target="_blank">plugin documentation</a>.', 'acp-woocommerce-ultraproduction'), 'https://openai.com/index/buy-it-in-chatgpt/'); ?></p>
+                    <h3><?php esc_html_e('Help and Documentation', 'woocommerce-acp-instant-checkout'); ?></h3>
+                    /* translators: %s: URL to plugin documentation */
+                    <p><?php printf(esc_html__('For more information, please visit the <a href="%s" target="_blank">plugin documentation</a>.', 'woocommerce-acp-instant-checkout'), 'https://openai.com/index/buy-it-in-chatgpt/'); ?></p>
                 </div>
             </div>
         </div>
@@ -225,14 +228,14 @@ class WCACP_Admin {
      * API settings section callback
      */
     public function api_settings_section_callback() {
-        echo '<p>' . __('Enable or disable the ACP API and enter your OpenAI API key.', 'acp-woocommerce-ultraproduction') . '</p>';
+        echo '<p>' . esc_html__('Enable or disable the ACP API and enter your OpenAI API key.', 'woocommerce-acp-instant-checkout') . '</p>';
     }
 
     /**
      * Payment settings section callback
      */
     public function payment_settings_section_callback() {
-        echo '<p>' . __('Enter your Stripe API keys and webhook secret to enable secure payments.', 'acp-woocommerce-ultraproduction') . '</p>';
+        echo '<p>' . esc_html__('Enter your Stripe API keys and webhook secret to enable secure payments.', 'woocommerce-acp-instant-checkout') . '</p>';
     }
 
     /**
@@ -242,7 +245,7 @@ class WCACP_Admin {
         $value = get_option('wcacp_api_enabled', 'yes');
         ?>
         <input type="checkbox" name="wcacp_api_enabled" value="1" <?php checked($value, '1'); ?> />
-        <label for="wcacp_api_enabled"><?php _e('Enable ACP API endpoints', 'acp-woocommerce-ultraproduction'); ?></label>
+        <label for="wcacp_api_enabled"><?php esc_html_e('Enable ACP API endpoints', 'woocommerce-acp-instant-checkout'); ?></label>
         <?php
     }
 
@@ -253,8 +256,8 @@ class WCACP_Admin {
         $value = get_option('wcacp_openai_api_key', '');
         ?>
         <input type="password" name="wcacp_openai_api_key" value="<?php echo esc_attr($value); ?>" class="regular-text" />
-        <p class="description"><?php _e('API key for authenticating ACP requests from OpenAI (received after OpenAI approval).', 'acp-woocommerce-ultraproduction'); ?></p>
-        <button type="button" class="button button-secondary wcacp-test-connection" data-type="openai"><?php _e('Test API', 'acp-woocommerce-ultraproduction'); ?></button>
+        <p class="description"><?php esc_html_e('API key for authenticating ACP requests from OpenAI (received after OpenAI approval).', 'woocommerce-acp-instant-checkout'); ?></p>
+        <button type="button" class="button button-secondary wcacp-test-connection" data-type="openai"><?php esc_html_e('Test API', 'woocommerce-acp-instant-checkout'); ?></button>
         <?php
     }
 
@@ -265,8 +268,8 @@ class WCACP_Admin {
         $value = get_option('wcacp_stripe_publishable_key', '');
         ?>
         <input type="text" name="wcacp_stripe_publishable_key" value="<?php echo esc_attr($value); ?>" class="regular-text" />
-        <p class="description"><?php _e('Your Stripe publishable key.', 'acp-woocommerce-ultraproduction'); ?></p>
-        <button type="button" class="button button-secondary wcacp-test-connection" data-type="stripe"><?php _e('Test Connection', 'acp-woocommerce-ultraproduction'); ?></button>
+        <p class="description"><?php esc_html_e('Your Stripe publishable key.', 'woocommerce-acp-instant-checkout'); ?></p>
+        <button type="button" class="button button-secondary wcacp-test-connection" data-type="stripe"><?php esc_html_e('Test Connection', 'woocommerce-acp-instant-checkout'); ?></button>
         <?php
     }
 
@@ -277,7 +280,7 @@ class WCACP_Admin {
         $value = get_option('wcacp_stripe_secret_key', '');
         ?>
         <input type="password" name="wcacp_stripe_secret_key" value="<?php echo esc_attr($value); ?>" class="regular-text" />
-        <p class="description"><?php _e('Your Stripe secret key.', 'acp-woocommerce-ultraproduction'); ?></p>
+        <p class="description"><?php esc_html_e('Your Stripe secret key.', 'woocommerce-acp-instant-checkout'); ?></p>
         <?php
     }
 
@@ -288,7 +291,7 @@ class WCACP_Admin {
         $value = get_option('wcacp_webhook_secret', '');
         ?>
         <input type="password" name="wcacp_webhook_secret" value="<?php echo esc_attr($value); ?>" class="regular-text" />
-        <p class="description"><?php _e('Stripe webhook secret for verifying webhook signatures.', 'acp-woocommerce-ultraproduction'); ?></p>
+        <p class="description"><?php esc_html_e('Stripe webhook secret for verifying webhook signatures.', 'woocommerce-acp-instant-checkout'); ?></p>
         <?php
     }
 
@@ -325,7 +328,8 @@ class WCACP_Admin {
             if (empty(get_option('wcacp_openai_api_key'))) {
                 ?>
                 <div class="notice notice-warning is-dismissible">
-                    <p><?php printf(__('ACP Instant Checkout: An OpenAI API key is required for ACP functionality. Please <a href="%s">enter your API key</a>.', 'acp-woocommerce-ultraproduction'), esc_url(admin_url('options-general.php?page=wcacp-settings'))); ?></p>
+                    /* translators: %s: URL to plugin settings page */
+            <p><?php printf(esc_html__('ACP Instant Checkout: An OpenAI API key is required for ACP functionality. Please <a href="%s">enter your API key</a>.', 'woocommerce-acp-instant-checkout'), esc_url(admin_url('options-general.php?page=wcacp-settings'))); ?></p>
                 </div>
                 <?php
             }
@@ -333,7 +337,8 @@ class WCACP_Admin {
             if (empty(get_option('wcacp_stripe_secret_key'))) {
                 ?>
                 <div class="notice notice-warning is-dismissible">
-                    <p><?php printf(__('ACP Instant Checkout: A Stripe secret key is required for payment processing. Please <a href="%s">enter your Stripe keys</a>.', 'acp-woocommerce-ultraproduction'), esc_url(admin_url('options-general.php?page=wcacp-settings'))); ?></p>
+                    /* translators: %s: URL to plugin settings page */
+            <p><?php printf(esc_html__('ACP Instant Checkout: A Stripe secret key is required for payment processing. Please <a href="%s">enter your Stripe keys</a>.', 'woocommerce-acp-instant-checkout'), esc_url(admin_url('options-general.php?page=wcacp-settings'))); ?></p>
                 </div>
                 <?php
             }
@@ -343,7 +348,7 @@ class WCACP_Admin {
         if (!class_exists('WooCommerce')) {
             ?>
             <div class="notice notice-error">
-                <p><?php _e('ACP Instant Checkout requires WooCommerce to be installed and active.', 'acp-woocommerce-ultraproduction'); ?></p>
+                <p><?php esc_html_e('ACP Instant Checkout requires WooCommerce to be installed and active.', 'woocommerce-acp-instant-checkout'); ?></p>
             </div>
             <?php
         }
@@ -355,7 +360,7 @@ class WCACP_Admin {
     public function add_order_meta_boxes() {
         add_meta_box(
             'wcacp-order-info',
-            __('ACP Information', 'acp-woocommerce-ultraproduction'),
+            __('ACP Information', 'woocommerce-acp-instant-checkout'),
             array($this, 'order_meta_box_callback'),
             'shop_order',
             'side',
@@ -371,20 +376,20 @@ class WCACP_Admin {
         $acp_payment_intent_id = get_post_meta($post->ID, '_acp_payment_intent_id', true);
 
         if (!$acp_session_id) {
-            echo '<p>' . __('This order was not created through ACP.', 'acp-woocommerce-ultraproduction') . '</p>';
+            echo '<p>' . esc_html__('This order was not created through ACP.', 'woocommerce-acp-instant-checkout') . '</p>';
             return;
         }
 
         ?>
-        <p><strong><?php _e('ACP Session ID:', 'acp-woocommerce-ultraproduction'); ?></strong></p>
+        <p><strong><?php esc_html_e('ACP Session ID:', 'woocommerce-acp-instant-checkout'); ?></strong></p>
         <p><code><?php echo esc_html($acp_session_id); ?></code></p>
 
         <?php if ($acp_payment_intent_id): ?>
-        <p><strong><?php _e('Payment Intent ID:', 'acp-woocommerce-ultraproduction'); ?></strong></p>
+        <p><strong><?php esc_html_e('Payment Intent ID:', 'woocommerce-acp-instant-checkout'); ?></strong></p>
         <p><code><?php echo esc_html($acp_payment_intent_id); ?></code></p>
         <?php endif; ?>
 
-        <p><em><?php _e('This order was created through OpenAI\'s "Buy it in ChatGPT" feature.', 'acp-woocommerce-ultraproduction'); ?></em></p>
+        <p><em><?php esc_html_e('This order was created through OpenAI\'s "Buy it in ChatGPT" feature.', 'woocommerce-acp-instant-checkout'); ?></em></p>
         <?php
     }
 
@@ -394,7 +399,7 @@ class WCACP_Admin {
     public function test_connection() {
         check_ajax_referer('wcacp_admin_nonce', 'nonce');
 
-        $type = sanitize_text_field($_POST['type']);
+        $type = isset($_POST['type']) ? sanitize_text_field(wp_unslash($_POST['type'])) : '';
 
         if ($type === 'openai') {
             $api_key = get_option('wcacp_openai_api_key');
@@ -417,3 +422,4 @@ class WCACP_Admin {
         wp_send_json_error('Invalid API type.');
     }
 }
+

@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: ChatGPT Instant Checkout - ACP Integration
+ * Plugin Name: ACP Instant Checkout for ChatGPT & WooCommerce
  * Plugin URI:  https://github.com/lmotwani/woocommerce-acp-instant-checkout
  * Description: Enable "Buy it in ChatGPT" for your WooCommerce store using OpenAI's Agentic Commerce Protocol (ACP). Seamless AI-powered checkout integration.
  * Version:     1.0.0
@@ -8,8 +8,7 @@
  * Author URI:  https://LokeshMotwani.com
  * License:     GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: acp-woocommerce-ultraproduction
- * Domain Path: /languages
+ * Text Domain: woocommerce-acp-instant-checkout
  * WC requires at least: 5.0
  * WC tested up to: 8.0
  */
@@ -76,14 +75,6 @@ final class WooCommerce_ACP_Instant_Checkout {
      */
     private function init_hooks() {
         add_action('plugins_loaded', array($this, 'on_plugins_loaded'));
-        add_action('init', array($this, 'load_textdomain'));
-    }
-
-    /**
-     * Load plugin textdomain.
-     */
-    public function load_textdomain() {
-        load_plugin_textdomain('acp-woocommerce-ultraproduction', false, dirname(plugin_basename(WCACP_PLUGIN_FILE)) . '/languages/');
     }
 
     /**
@@ -185,7 +176,9 @@ final class WooCommerce_ACP_Instant_Checkout {
             'response' => $response_data,
         );
 
-        error_log('ACP Request: ' . wp_json_encode($log_entry));
+        if (defined('WP_DEBUG') && WP_DEBUG) {
+            error_log('ACP Request: ' . wp_json_encode($log_entry));
+        }
     }
 }
 

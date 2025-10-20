@@ -27,8 +27,8 @@ class WCACP_Post_Types {
         register_post_type('acp_checkout_session',
             array(
                 'labels' => array(
-                    'name' => __('ACP Checkout Sessions', 'acp-woocommerce-ultraproduction'),
-                    'singular_name' => __('ACP Checkout Session', 'acp-woocommerce-ultraproduction'),
+                    'name' => __('ACP Checkout Sessions', 'woocommerce-acp-instant-checkout'),
+                    'singular_name' => __('ACP Checkout Session', 'woocommerce-acp-instant-checkout'),
                 ),
                 'public' => false,
                 'has_archive' => false,
