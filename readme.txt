@@ -25,7 +25,7 @@ This plugin enables any WooCommerce-powered website to participate in **OpenAIâ€
 
 == Installation ==
 
-1.  Upload the plugin files to the `/wp-content/plugins/woocommerce-acp-instant-checkout` directory, or install the plugin through the WordPress plugins screen directly.
+1.  Upload the plugin files to the `/wp-content/plugins/acp-instant-checkout-for-woocommerce` directory, or install the plugin through the WordPress plugins screen directly.
 2.  Activate the plugin through the 'Plugins' screen in WordPress.
 3.  Go to **WooCommerce > Settings > ACP/ChatGPT** to configure the plugin.
 
