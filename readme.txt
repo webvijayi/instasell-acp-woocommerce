@@ -7,8 +7,8 @@ Stable tag: 1.0.0
 Requires PHP: 7.4
 WC requires at least: 5.0
 WC tested up to: 8.0
-License: Apache-2.0
-License URI: https://www.apache.org/licenses/LICENSE-2.0
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Enable OpenAI's Agentic Commerce Protocol (ACP) for any WooCommerce store, allowing "Buy it in ChatGPT" functionality.
 
@@ -34,6 +34,10 @@ This plugin enables any WooCommerce-powered website to participate in **OpenAIâ€
 
 ACP is an open standard created by OpenAI to allow AI agents, like ChatGPT, to interact with e-commerce stores in a standardized way. This enables features like "Buy it in ChatGPT."
 
+= Do I need to apply for OpenAI ACP approval? =
+
+Yes, you need to apply at https://openai.com/index/buy-it-in-chatgpt/ and get approved before your products can appear in ChatGPT.
+
 = Do I need a Stripe account? =
 
 Yes, a Stripe account is required for payment processing.
@@ -41,6 +45,14 @@ Yes, a Stripe account is required for payment processing.
 = Where can I find my product feed? =
 
 Your product feed is available at `https://yourdomain.com/wp-json/wcacp/v1/product-feed`.
+
+= Is this plugin free? =
+
+Yes, the plugin is completely free and open source under GPLv2 license.
+
+= Does this work with any WooCommerce store? =
+
+Yes, as long as you meet the minimum requirements (WordPress 5.0+, WooCommerce 5.0+, PHP 7.4+).
 
 == Screenshots ==
 
