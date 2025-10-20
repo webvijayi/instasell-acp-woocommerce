@@ -116,12 +116,12 @@ class WCACP_Product_Feed {
     private function get_products_for_feed($limit, $offset) {
         // Note: meta_query is required here to filter products by visibility status
         // This ensures only catalog-visible products appear in the ACP feed for AI agents
-        // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Required for product visibility filtering in ACP feed
         $args = array(
             'status' => 'publish',
             'type' => array('simple', 'variable'),
             'limit' => $limit,
             'offset' => $offset,
+            // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Required for product visibility filtering in ACP feed
             'meta_query' => array(
                 array(
                     'key' => '_visibility',
