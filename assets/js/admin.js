@@ -1,5 +1,5 @@
 /**
- * WooCommerce ACP Instant Checkout Admin Scripts
+ * WooCommerce (OpenAI - Buy in ChatGPT) ACP Instant Checkout Plugin - Admin Scripts
  */
 
 jQuery(document).ready(function($) {

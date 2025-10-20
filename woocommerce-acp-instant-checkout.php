@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name: WooCommerce ACP Instant Checkout
- * Plugin URI:  http://lokeshmotwani.com/wp/plugin/openai-woo-acp
+ * Plugin Name: WooCommerce (OpenAI - Buy in ChatGPT) ACP Instant Checkout Plugin
+ * Plugin URI:  https://github.com/lmotwani/woocommerce-acp-instant-checkout
  * Description: Enables OpenAI's Agentic Commerce Protocol (ACP) for any WooCommerce store, allowing "Buy it in ChatGPT" functionality.
  * Version:     1.0.0
  * Author:      Lokesh Motwani

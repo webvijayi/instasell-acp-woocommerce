@@ -175,7 +175,7 @@ class WCACP_Admin {
     public function settings_page() {
         ?>
         <div class="wrap">
-            <h1><?php _e('WooCommerce ACP Instant Checkout Settings', 'acp-woocommerce-ultraproduction'); ?></h1>
+            <h1><?php _e('WooCommerce (OpenAI - Buy in ChatGPT) ACP Settings', 'acp-woocommerce-ultraproduction'); ?></h1>
 
             <p><?php printf(__('Configure your store for OpenAI\'s Agentic Commerce Protocol (ACP) to enable "Buy it in ChatGPT". <a href="%s" target="_blank">Learn more about ACP</a>.', 'acp-woocommerce-ultraproduction'), 'https://openai.com/index/buy-it-in-chatgpt/'); ?></p>
 

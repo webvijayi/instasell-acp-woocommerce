@@ -1,4 +1,4 @@
-=== WooCommerce ACP Instant Checkout ===
+=== WooCommerce (OpenAI - Buy in ChatGPT) ACP Instant Checkout Plugin ===
 Contributors: lokeshmotwani
 Tags: woocommerce, openai, chatgpt, acp, agentic-commerce, checkout
 Requires at least: 5.0

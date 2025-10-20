@@ -1,4 +1,4 @@
-# WooCommerce ACP Instant Checkout
+# WooCommerce (OpenAI - Buy in ChatGPT) ACP Instant Checkout Plugin
 
 ## Download
 
