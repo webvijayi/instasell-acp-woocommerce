@@ -22,17 +22,17 @@ npm-debug.log
 Thumbs.db
 
 # Build and documentation files (not needed in repo)
-BUILD-GUIDE.md
-INSTALL.md
-QUICKSTART.md
-RELEASE-CHECKLIST.md
-PRE-PUSH-CHECKLIST.md
-LOCAL-SETUP.md
+# Exclude all .md files except README.md
+*.md
+!README.md
+
+# Build scripts and files
 build.sh
 build.bat
 build-exclude.txt
 .distignore
 composer-setup.php
 composer.phar
+cacert.pem
 build/
 *.zip
