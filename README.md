@@ -12,7 +12,7 @@ Download the latest installable version from the [Releases page](https://github.
 **Requires PHP:** 7.4
 **WC requires at least:** 5.0
 **WC tested up to:** 8.0
-**License:** [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0)
+**License:** [GPLv2 or later](https://www.gnu.org/licenses/gpl-2.0.html)
 
 Enable OpenAI's Agentic Commerce Protocol (ACP) for any WooCommerce store, allowing "Buy it in ChatGPT" functionality.
 
