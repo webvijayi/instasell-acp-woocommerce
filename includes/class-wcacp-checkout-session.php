@@ -357,6 +357,10 @@ class WCACP_Checkout_Session {
      * Get session post by session ID
      */
     private function get_session_post($session_id) {
+        // Note: Direct meta_key/meta_value query is required for session lookup by unique ID
+        // This is the most efficient way to retrieve a session by its ACP session identifier
+        // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Required for ACP session lookup by unique identifier
+        // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Required for ACP session lookup by unique identifier
         $posts = get_posts(array(
             'post_type' => 'acp_checkout_session',
             'meta_key' => '_acp_session_id',
@@ -364,7 +368,7 @@ class WCACP_Checkout_Session {
             'posts_per_page' => 1,
         ));
 
-        return !empty($posts) ? $posts : null;
+        return !empty($posts) ? $posts[0] : null;
     }
 
     private function get_session_data_from_post($post) {
