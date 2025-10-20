@@ -220,6 +220,18 @@ class WCACP_Product_Feed {
     private function clear_feed_cache() {
         global $wpdb;
 
+        // Get all transient keys from cache first
+        $cache_group = 'wcacp_feed_transients';
+        $cached_keys = wp_cache_get('transient_keys', $cache_group);
+        
+        if ($cached_keys && is_array($cached_keys)) {
+            foreach ($cached_keys as $key) {
+                delete_transient($key);
+            }
+            wp_cache_delete('transient_keys', $cache_group);
+        }
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Bulk deletion of transients, caching not applicable
         $wpdb->query(
             $wpdb->prepare(
                 "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s",
@@ -227,6 +239,7 @@ class WCACP_Product_Feed {
             )
         );
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Bulk deletion of transients, caching not applicable
         $wpdb->query(
             $wpdb->prepare(
                 "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s",

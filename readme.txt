@@ -1,6 +1,6 @@
-=== ACP Instant Checkout for ChatGPT & WooCommerce ===
+=== ACP Instant Checkout for WooCommerce ===
 Contributors: lokeshmotwani
-Tags: woocommerce, chatgpt, acp, checkout, ai-commerce
+Tags: chatgpt, acp, checkout, ai-commerce, stripe
 Requires at least: 5.0
 Tested up to: 6.8
 Stable tag: 1.0.0
@@ -10,7 +10,7 @@ WC tested up to: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Enable OpenAI's Agentic Commerce Protocol (ACP) for any WooCommerce store, allowing "Buy it in ChatGPT" functionality.
+Enable OpenAI's Agentic Commerce Protocol (ACP) allowing "Buy it in ChatGPT" functionality for your online store.
 
 == Description ==
 
@@ -21,6 +21,7 @@ This plugin enables any WooCommerce-powered website to participate in **OpenAIâ€
 *   **Turns Your Store Into an AI-Ready Merchant:** Creates all the REST API endpoints required by the ACP, generates a machine-readable product feed, and handles the entire checkout process.
 *   **Connects Directly With ChatGPT:** Your products can be surfaced in ChatGPT search results, and users can complete purchases natively within the chat experience.
 *   **Secure, PCI-Compliant Commerce:** Utilizes Stripe's secure tokenization for payments, ensuring that sensitive data is handled safely.
+*   **Easy Integration:** Works seamlessly with your existing store setup with minimal configuration required.
 
 == Installation ==
 
@@ -50,7 +51,7 @@ Your product feed is available at `https://yourdomain.com/wp-json/wcacp/v1/produ
 
 Yes, the plugin is completely free and open source under GPLv2 license.
 
-= Does this work with any WooCommerce store? =
+= Does this work with any store? =
 
 Yes, as long as you meet the minimum requirements (WordPress 5.0+, WooCommerce 5.0+, PHP 7.4+).
 
