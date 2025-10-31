@@ -3,7 +3,7 @@
  * Plugin Name: InstaSell with ACP for WooCommerce
  * Plugin URI:  https://github.com/webvijayi/instasell-acp-woocommerce
  * Description: Enable "Buy it in ChatGPT" using the Agentic Commerce Protocol (ACP). Seamless AI-powered checkout integration helping WooCommerce store owners sell more.
- * Version:     1.0.1
+ * Version:     1.0.2
  * Author:      Web Vijayi
  * Author URI:  https://webvijayi.com
  * License:     GPL-2.0-or-later
@@ -22,6 +22,94 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+/**
+ * Check if WooCommerce is active and show admin notice if not.
+ */
+function instsl_check_woocommerce_dependency() {
+    if (!class_exists('WooCommerce')) {
+        add_action('admin_notices', 'instsl_woocommerce_missing_notice');
+        return false;
+    }
+    return true;
+}
+
+/**
+ * Display admin notice when WooCommerce is not active.
+ */
+function instsl_woocommerce_missing_notice() {
+    ?>
+    <div class="notice notice-error">
+        <p>
+            <strong><?php esc_html_e('InstaSell with ACP for WooCommerce', 'instasell-acp-woocommerce'); ?></strong>
+            <?php esc_html_e('requires WooCommerce to be installed and active.', 'instasell-acp-woocommerce'); ?>
+        </p>
+        <p>
+            <?php
+            /* translators: %s: WooCommerce plugin URL */
+            echo wp_kses_post(
+                sprintf(
+                    __('Please install and activate <a href="%s" target="_blank">WooCommerce</a> to use this plugin.', 'instasell-acp-woocommerce'),
+                    'https://wordpress.org/plugins/woocommerce/'
+                )
+            );
+            ?>
+        </p>
+    </div>
+    <?php
+}
+
+/**
+ * Deactivate plugin if WooCommerce is not active.
+ */
+function instsl_deactivate_on_woocommerce_missing() {
+    if (!class_exists('WooCommerce')) {
+        deactivate_plugins(plugin_basename(__FILE__));
+
+        // Prevent "Plugin activated" notice
+        if (isset($_GET['activate'])) {
+            unset($_GET['activate']);
+        }
+
+        add_action('admin_notices', 'instsl_woocommerce_deactivation_notice');
+    }
+}
+
+/**
+ * Display notice when plugin is deactivated due to missing WooCommerce.
+ */
+function instsl_woocommerce_deactivation_notice() {
+    ?>
+    <div class="notice notice-error">
+        <p>
+            <strong><?php esc_html_e('InstaSell with ACP for WooCommerce', 'instasell-acp-woocommerce'); ?></strong>
+            <?php esc_html_e('has been deactivated because WooCommerce is not installed or active.', 'instasell-acp-woocommerce'); ?>
+        </p>
+        <p>
+            <?php
+            /* translators: %s: WooCommerce plugin URL */
+            echo wp_kses_post(
+                sprintf(
+                    __('Please install and activate <a href="%s" target="_blank">WooCommerce</a> first, then activate InstaSell.', 'instasell-acp-woocommerce'),
+                    'https://wordpress.org/plugins/woocommerce/'
+                )
+            );
+            ?>
+        </p>
+    </div>
+    <?php
+}
+
+// Register activation hook to check for WooCommerce
+register_activation_hook(__FILE__, 'instsl_deactivate_on_woocommerce_missing');
+
+// Check if WooCommerce gets deactivated
+add_action('admin_init', function() {
+    // Only check on plugin admin pages
+    if (is_admin() && current_user_can('activate_plugins')) {
+        instsl_check_woocommerce_dependency();
+    }
+});
+
 // Main plugin class
 final class INSTSL_Checkout {
 
@@ -37,7 +125,7 @@ final class INSTSL_Checkout {
      *
      * @var string
      */
-    public $version = '1.0.1';
+    public $version = '1.0.2';
 
     /**
      * Constructor.
@@ -45,7 +133,7 @@ final class INSTSL_Checkout {
     private function __construct() {
         $this->define_constants();
         $this->includes();
-        $this->init_hooks();
+        $this->init();
     }
 
     /**
@@ -75,18 +163,13 @@ final class INSTSL_Checkout {
     }
 
     /**
-     * Initialize hooks.
+     * Initialize plugin components.
      */
-    private function init_hooks() {
-        add_action('plugins_loaded', array($this, 'on_plugins_loaded'));
-    }
-
-    /**
-     * On plugins loaded.
-     */
-    public function on_plugins_loaded() {
-        // Initialization
+    private function init() {
+        // Initialize admin interface
         new INSTSL_Admin();
+
+        // Initialize product feed
         new INSTSL_Product_Feed();
 
         // Register API endpoints
@@ -190,11 +273,15 @@ final class INSTSL_Checkout {
 /**
  * Returns the main instance of INSTSL_Checkout.
  *
- * @return INSTSL_Checkout
+ * @return INSTSL_Checkout|null
  */
 function instsl_checkout() {
+    // Only initialize if WooCommerce is active
+    if (!instsl_check_woocommerce_dependency()) {
+        return null;
+    }
     return INSTSL_Checkout::get_instance();
 }
 
-// Initialize the plugin
-instsl_checkout();
+// Initialize the plugin (only if WooCommerce is active)
+add_action('plugins_loaded', 'instsl_checkout', 20);
