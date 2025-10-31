@@ -1,22 +1,23 @@
 {
-    "name": "woocommerce-acp-instant-checkout/woocommerce-acp",
-    "description": "WooCommerce integration for OpenAI's Agentic Commerce Protocol (ACP) enabling 'Buy it in ChatGPT' functionality",
+    "name": "webvijayi/instasell-acp-woocommerce",
+    "description": "InstaSell - WooCommerce integration for the Agentic Commerce Protocol (ACP) enabling 'Buy it in ChatGPT' functionality to help store owners sell more",
     "type": "wordpress-plugin",
     "license": "GPL-2.0-or-later",
     "authors": [
         {
-            "name": "WooCommerce ACP Team",
-            "email": "support@example.com"
+            "name": "Web Vijayi",
+            "email": "webvijayi.com@gmail.com",
+            "homepage": "https://webvijayi.com"
         }
     ],
     "require": {
         "php": ">=7.4",
-        "stripe/stripe-php": "^10.0",
+        "stripe/stripe-php": "^18.0",
         "justinrainbow/json-schema": "^5.2"
     },
     "autoload": {
         "psr-4": {
-            "WooCommerceACP\\": "includes/"
+            "WebVijayi\\InstaSell\\": "includes/"
         }
     },
     "config": {

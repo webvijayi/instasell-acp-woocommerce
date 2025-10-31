@@ -1,0 +1,22 @@
+# Files to exclude from distribution zip
+/.git
+/.gitattributes
+/.gitignore
+/build
+/build.sh
+/build.bat
+/build-exclude.txt
+/phpcs.xml
+/phpunit.xml
+/tests
+/.DS_Store
+/node_modules
+/.distignore
+/composer.phar
+/composer-setup.php
+/cacert.pem
+/.github
+
+# Exclude all .md files except README.md
+*.md
+!README.md
