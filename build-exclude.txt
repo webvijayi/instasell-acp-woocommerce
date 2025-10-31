@@ -1,0 +1,21 @@
+build
+.git
+.gitignore
+.gitattributes
+node_modules
+build.sh
+build.bat
+build-exclude.txt
+phpcs.xml
+phpunit.xml
+tests
+.DS_Store
+composer.phar
+composer-setup.php
+cacert.pem
+.distignore
+.github
+
+# Exclude all .md files except README.md
+*.md
+!README.md

@@ -1,38 +1,19 @@
-# WordPress
-/wp-admin/
-/wp-content/
-/wp-includes/
-/wp-config.php
-/wp-settings.php
-/xmlrpc.php
-/index.php
-/license.txt
-/readme.html
+# Build artifacts
+build/
+*.zip
 
-# Composer
-/vendor/
-/composer.lock
+# Composer dependencies (users should run composer install)
+vendor/
+composer.phar
+composer-setup.php
+cacert.pem
 
-# Node
-/node_modules/
-npm-debug.log
-
-# OS
+# System files
 .DS_Store
 Thumbs.db
 
-# Build and documentation files (not needed in repo)
-# Exclude all .md files except README.md
-*.md
-!README.md
-
-# Build scripts and files
-build.sh
-build.bat
-build-exclude.txt
-.distignore
-composer-setup.php
-composer.phar
-cacert.pem
-build/
-*.zip
+# Old/deprecated files
+acp-instant-checkout-for-woocommerce.php
+webvijayi-ai-checkout-acp-woocommerce.php
+includes/class-wcacp-*.php
+includes/class-wvacp-*.php
