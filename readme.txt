@@ -3,7 +3,7 @@ Contributors: webvijayi
 Tags: chatgpt, acp, checkout, ai-commerce, stripe, selling
 Requires at least: 5.0
 Tested up to: 6.8
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 Requires PHP: 7.4
 WC requires at least: 5.0
 WC tested up to: 8.0
@@ -86,6 +86,13 @@ This plugin is developed and maintained by Web Vijayi (founded by Lokesh Motwani
 
 == Changelog ==
 
+= 1.0.2 =
+*   **CRITICAL FIX:** Added WooCommerce dependency checking with admin notices
+*   Plugin now displays clear error message if WooCommerce is not installed
+*   Prevents plugin activation if WooCommerce is missing (backward compatibility for WordPress < 6.5)
+*   Shows admin notice with installation link if WooCommerce is deactivated
+*   Prevents fatal errors on sites without WooCommerce
+
 = 1.0.1 =
 *   Updated plugin name to comply with WordPress.org guidelines (InstaSell branding)
 *   Updated Stripe PHP SDK to version 18.0
@@ -99,6 +106,9 @@ This plugin is developed and maintained by Web Vijayi (founded by Lokesh Motwani
 *   Initial release.
 
 == Upgrade Notice ==
+
+= 1.0.2 =
+Critical bug fix! Adds WooCommerce dependency checking to prevent fatal errors. Highly recommended update for all users.
 
 = 1.0.1 =
 Important update for WordPress.org compliance. Updates naming conventions and Stripe library. Please reconfigure your API keys after updating.
