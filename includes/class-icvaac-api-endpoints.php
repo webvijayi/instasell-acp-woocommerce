@@ -9,14 +9,9 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Class INSTSL_API_Endpoints
+ * Class ICVAAC_API_Endpoints
  */
-class INSTSL_API_Endpoints {
-
-    /**
-     * Plugin instance
-     */
-    private $plugin;
+class ICVAAC_API_Endpoints {
 
     /**
      * Checkout session handler
@@ -27,8 +22,7 @@ class INSTSL_API_Endpoints {
      * Constructor
      */
     public function __construct() {
-        $this->plugin = instsl_checkout();
-        $this->checkout_session = new INSTSL_Checkout_Session();
+        $this->checkout_session = new ICVAAC_Checkout_Session();
     }
 
     /**
@@ -97,7 +91,8 @@ class INSTSL_API_Endpoints {
      * Validate ACP request
      */
     public function validate_acp_request($request) {
-        return $this->plugin->validate_acp_request($request);
+        $plugin = icvaac_checkout();
+        return $plugin ? $plugin->validate_acp_request($request) : false;
     }
 
     /**
@@ -107,7 +102,10 @@ class INSTSL_API_Endpoints {
         $request_data = $request->get_json_params();
 
         // Log request
-        $this->plugin->log_acp_request('/checkout_sessions', $request_data);
+        $plugin = icvaac_checkout();
+        if ($plugin) {
+            $plugin->log_acp_request('/checkout_sessions', $request_data);
+        }
 
         // Create session
         $response = $this->checkout_session->create_checkout_session($request_data);
@@ -117,7 +115,10 @@ class INSTSL_API_Endpoints {
         }
 
         // Log response
-        $this->plugin->log_acp_request('/checkout_sessions', $request_data, $response);
+        $plugin = icvaac_checkout();
+        if ($plugin) {
+            $plugin->log_acp_request('/checkout_sessions', $request_data, $response);
+        }
 
         return new WP_REST_Response($response, 201);
     }
@@ -130,7 +131,10 @@ class INSTSL_API_Endpoints {
         $request_data = $request->get_json_params();
 
         // Log request
-        $this->plugin->log_acp_request("/checkout_sessions/{$session_id}", $request_data);
+        $plugin = icvaac_checkout();
+        if ($plugin) {
+            $plugin->log_acp_request("/checkout_sessions/{$session_id}", $request_data);
+        }
 
         // Update session
         $response = $this->checkout_session->update_checkout_session($session_id, $request_data);
@@ -140,7 +144,10 @@ class INSTSL_API_Endpoints {
         }
 
         // Log response
-        $this->plugin->log_acp_request("/checkout_sessions/{$session_id}", $request_data, $response);
+        $plugin = icvaac_checkout();
+        if ($plugin) {
+            $plugin->log_acp_request("/checkout_sessions/{$session_id}", $request_data, $response);
+        }
 
         return new WP_REST_Response($response, 200);
     }
@@ -152,7 +159,10 @@ class INSTSL_API_Endpoints {
         $session_id = $request->get_param('session_id');
 
         // Log request
-        $this->plugin->log_acp_request("/checkout_sessions/{$session_id}", array());
+        $plugin = icvaac_checkout();
+        if ($plugin) {
+            $plugin->log_acp_request("/checkout_sessions/{$session_id}", array());
+        }
 
         // Get session
         $response = $this->checkout_session->get_checkout_session($session_id);
@@ -162,7 +172,10 @@ class INSTSL_API_Endpoints {
         }
 
         // Log response
-        $this->plugin->log_acp_request("/checkout_sessions/{$session_id}", array(), $response);
+        $plugin = icvaac_checkout();
+        if ($plugin) {
+            $plugin->log_acp_request("/checkout_sessions/{$session_id}", array(), $response);
+        }
 
         return new WP_REST_Response($response, 200);
     }
@@ -175,7 +188,10 @@ class INSTSL_API_Endpoints {
         $request_data = $request->get_json_params();
 
         // Log request
-        $this->plugin->log_acp_request("/checkout_sessions/{$session_id}/complete", $request_data);
+        $plugin = icvaac_checkout();
+        if ($plugin) {
+            $plugin->log_acp_request("/checkout_sessions/{$session_id}/complete", $request_data);
+        }
 
         // Complete session
         $response = $this->checkout_session->complete_checkout_session($session_id, $request_data);
@@ -185,7 +201,10 @@ class INSTSL_API_Endpoints {
         }
 
         // Log response
-        $this->plugin->log_acp_request("/checkout_sessions/{$session_id}/complete", $request_data, $response);
+        $plugin = icvaac_checkout();
+        if ($plugin) {
+            $plugin->log_acp_request("/checkout_sessions/{$session_id}/complete", $request_data, $response);
+        }
 
         return new WP_REST_Response($response, 200);
     }
@@ -197,7 +216,10 @@ class INSTSL_API_Endpoints {
         $session_id = $request->get_param('session_id');
 
         // Log request
-        $this->plugin->log_acp_request("/checkout_sessions/{$session_id}/cancel", array());
+        $plugin = icvaac_checkout();
+        if ($plugin) {
+            $plugin->log_acp_request("/checkout_sessions/{$session_id}/cancel", array());
+        }
 
         // Cancel session
         $response = $this->checkout_session->cancel_checkout_session($session_id);
@@ -207,7 +229,10 @@ class INSTSL_API_Endpoints {
         }
 
         // Log response
-        $this->plugin->log_acp_request("/checkout_sessions/{$session_id}/cancel", array(), $response);
+        $plugin = icvaac_checkout();
+        if ($plugin) {
+            $plugin->log_acp_request("/checkout_sessions/{$session_id}/cancel", array(), $response);
+        }
 
         return new WP_REST_Response($response, 200);
     }

@@ -4,7 +4,7 @@
 # Exit on error
 set -e
 
-echo "Building InstaSell with ACP for WooCommerce plugin..."
+echo "Building Instant Checkout via ACP Agentic Commerce for WooCommerce plugin..."
 
 # Install production dependencies
 echo "Installing production dependencies..."
@@ -12,7 +12,7 @@ composer install --no-dev --optimize-autoloader
 
 # Create build directory
 BUILD_DIR="build"
-PLUGIN_SLUG="instasell-acp-woocommerce"
+PLUGIN_SLUG="instant-checkout-via-acp-agentic-commerce-for-woocommerce"
 
 rm -rf "$BUILD_DIR"
 rm -f "$PLUGIN_SLUG.zip"
@@ -48,10 +48,10 @@ rsync -av --exclude="$BUILD_DIR" \
 # Add back README.md
 cp README.md "$BUILD_DIR/$PLUGIN_SLUG/" 2>/dev/null || true
 
-# Create zip
+# Create zip with proper forward slashes for cross-platform compatibility
 echo "Creating zip file..."
 cd "$BUILD_DIR"
-zip -r "../$PLUGIN_SLUG.zip" "$PLUGIN_SLUG"
+zip -r -q "../$PLUGIN_SLUG.zip" "$PLUGIN_SLUG"
 cd ..
 
 # Show zip contents

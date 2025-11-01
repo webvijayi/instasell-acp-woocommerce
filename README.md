@@ -1,10 +1,10 @@
-# InstaSell with ACP for WooCommerce
+# Instant Checkout via ACP Agentic Commerce for WooCommerce
 
 > **📢 WordPress.org Status:** This plugin is currently **under review** for submission to the WordPress.org Plugin Directory. Once approved, it will be available for one-click installation directly from your WordPress admin.
 
 ## Download
 
-Download the latest installable version from the [Releases page](https://github.com/webvijayi/instasell-acp-woocommerce/releases).
+Download the latest installable version from the [Releases page](https://github.com/webvijayi/instant-checkout-via-acp-agentic-commerce-for-woocommerce/releases).
 
 **Contributors:** Web Vijayi
 **Tags:** woocommerce, chatgpt, acp, agentic-commerce, checkout, ai
@@ -39,11 +39,11 @@ The Agentic Commerce Protocol (ACP) is an open standard that allows AI agents to
 
 The plugin comes pre-packaged with all dependencies. To install:
 
-1.  Download the latest `.zip` file from the [Releases page](https://github.com/webvijayi/instasell-acp-woocommerce/releases)
+1.  Download the latest `.zip` file from the [Releases page](https://github.com/webvijayi/instant-checkout-via-acp-agentic-commerce-for-woocommerce/releases)
 2.  In WordPress admin, go to **Plugins > Add New > Upload Plugin**
 3.  Choose the `.zip` file and click **Install Now**
 4.  Click **Activate Plugin**
-5.  Go to **Settings > InstaSell ACP** to configure the plugin
+5.  Go to **Settings > Instant Checkout ACP ACP** to configure the plugin
 6.  Apply for OpenAI ACP approval at https://openai.com/index/buy-it-in-chatgpt/
 7.  (After approval) Copy your ACP OpenAI API Key from the OpenAI ACP dashboard
 8.  Enable the ACP API and paste your OpenAI API Key in the settings
@@ -56,7 +56,7 @@ The plugin comes pre-packaged with all dependencies. To install:
 1.  Clone this repository into your `/wp-content/plugins/` directory.
 2.  Run `composer install` to download dependencies (Stripe PHP SDK v18.0+, JSON Schema validator).
 3.  Activate the plugin through the 'Plugins' screen in WordPress.
-4.  Go to **Settings > InstaSell ACP** to configure the plugin.
+4.  Go to **Settings > Instant Checkout ACP ACP** to configure the plugin.
 
 ### Building for Distribution
 
@@ -77,13 +77,13 @@ This will:
 - Install production dependencies (without dev packages)
 - Update Stripe library to latest version (v18.0+)
 - Create an optimized autoloader
-- Generate `instasell-acp-woocommerce.zip` with all necessary files including the `vendor/` directory
+- Generate `instant-checkout-via-acp-agentic-commerce-for-woocommerce.zip` with all necessary files including the `vendor/` directory
 
 The generated zip can be uploaded directly to WordPress without requiring users to run Composer.
 
 ## Configuration
 
-After installation, configure the plugin in **Settings > InstaSell ACP**:
+After installation, configure the plugin in **Settings > Instant Checkout ACP ACP**:
 
 1. **Enable ACP API** - Toggle to activate the ACP endpoints
 2. **OpenAI API Key** - Your API key from the OpenAI ACP dashboard (after approval)
@@ -95,7 +95,7 @@ After installation, configure the plugin in **Settings > InstaSell ACP**:
 
 Your product feed will be available at:
 ```
-https://yourdomain.com/wp-json/instsl/v1/product-feed
+https://yourdomain.com/wp-json/icvaac/v1/product-feed
 ```
 
 Submit this URL to OpenAI for indexing after approval.
@@ -107,20 +107,20 @@ To contribute to this plugin, please fork the repository and submit a pull reque
 ### Contribution Guidelines
 
 *   Follow the [WordPress Coding Standards](https://developer.wordpress.org/coding-standards/).
-*   Use the `INSTSL_` prefix for all classes and `instsl_` for all functions and options
+*   Use the `ICVAAC_` prefix for all classes and `icvaac_` for all functions and options
 *   Ensure all new code is well-documented.
 *   Test your changes thoroughly before submitting a pull request.
 
 ### Plugin Structure
 
 ```
-instasell-acp-woocommerce.php - Main plugin file
+instant-checkout-via-acp-agentic-commerce-for-woocommerce.php - Main plugin file
 includes/
-  ├── class-instsl-admin.php          - Admin settings interface
-  ├── class-instsl-api-endpoints.php  - REST API endpoints
-  ├── class-instsl-checkout-session.php - Checkout session handler
-  ├── class-instsl-product-feed.php   - Product feed generator
-  └── class-instsl-post-types.php     - Custom post types
+  ├── class-icvaac-admin.php          - Admin settings interface
+  ├── class-icvaac-api-endpoints.php  - REST API endpoints
+  ├── class-icvaac-checkout-session.php - Checkout session handler
+  ├── class-icvaac-product-feed.php   - Product feed generator
+  └── class-icvaac-post-types.php     - Custom post types
 assets/
   ├── css/                            - Stylesheets
   └── js/                             - JavaScript files
@@ -142,8 +142,8 @@ vendor/                               - Composer dependencies (bundled in distri
 *   Updated plugin name to comply with WordPress.org guidelines
 *   Updated Stripe PHP SDK to version 18.0
 *   Added "Requires Plugins" header for WooCommerce dependency
-*   Improved prefix naming to avoid conflicts (INSTSL)
-*   Updated all REST API endpoints to use instsl/v1 namespace
+*   Improved prefix naming to avoid conflicts (ICVAAC)
+*   Updated all REST API endpoints to use icvaac/v1 namespace
 *   Enhanced documentation and setup instructions
 *   Fixed ownership metadata
 
@@ -152,7 +152,7 @@ vendor/                               - Composer dependencies (bundled in distri
 
 ## Support
 
-For issues, questions, or contributions, please visit the [GitHub repository](https://github.com/webvijayi/instasell-acp-woocommerce).
+For issues, questions, or contributions, please visit the [GitHub repository](https://github.com/webvijayi/instant-checkout-via-acp-agentic-commerce-for-woocommerce).
 
 ## About Web Vijayi
 
@@ -161,7 +161,7 @@ For issues, questions, or contributions, please visit the [GitHub repository](ht
 **Founded by:** Lokesh Motwani
 **Website:** [https://webvijayi.com](https://webvijayi.com)
 
-InstaSell is developed to help WooCommerce merchants tap into emerging AI-powered shopping channels like ChatGPT, ensuring stores are ready for the future of commerce.
+Instant Checkout ACP is developed to help WooCommerce merchants tap into emerging AI-powered shopping channels like ChatGPT, ensuring stores are ready for the future of commerce.
 
 ## License
 

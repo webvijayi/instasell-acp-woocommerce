@@ -9,20 +9,14 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Class WCACP_Product_Feed
+ * Class ICVAAC_Product_Feed
  */
-class WCACP_Product_Feed {
-
-    /**
-     * Plugin instance
-     */
-    private $plugin;
+class ICVAAC_Product_Feed {
 
     /**
      * Constructor
      */
     public function __construct() {
-        $this->plugin = woocommerce_acp_instant_checkout();
         $this->init();
     }
 
@@ -34,7 +28,7 @@ class WCACP_Product_Feed {
         add_action('rest_api_init', array($this, 'register_feed_endpoint'));
 
         // Schedule feed updates
-        add_action('wcacp_update_product_feed', array($this, 'update_feed_cache'));
+        add_action('icvaac_update_product_feed', array($this, 'update_feed_cache'));
 
         // Hook into product updates to invalidate cache
         add_action('woocommerce_update_product', array($this, 'invalidate_feed_cache'));
@@ -47,7 +41,7 @@ class WCACP_Product_Feed {
      */
     public function register_feed_endpoint() {
         register_rest_route(
-            'wcacp/v1',
+            'icvaac/v1',
             '/product-feed',
             array(
                 'methods' => 'GET',
@@ -89,7 +83,7 @@ class WCACP_Product_Feed {
         $offset = $request->get_param('offset');
 
         // Get cached feed or generate new one
-        $cache_key = 'wcacp_product_feed_' . md5($format . $limit . $offset);
+        $cache_key = 'icvaac_product_feed_' . md5($format . $limit . $offset);
         $cached_feed = get_transient($cache_key);
 
         if ($cached_feed !== false) {
@@ -207,14 +201,14 @@ class WCACP_Product_Feed {
         $this->clear_feed_cache();
 
         // Generate new cache by making a test request
-        $test_request = new WP_REST_Request('GET', '/wcacp/v1/product-feed');
+        $test_request = new WP_REST_Request('GET', '/icvaac/v1/product-feed');
         $test_request->set_param('limit', 100);
         $test_request->set_param('offset', 0);
 
         $response = $this->get_product_feed($test_request);
 
         // Schedule next update in 15 minutes
-        wp_schedule_single_event(time() + 15 * MINUTE_IN_SECONDS, 'wcacp_update_product_feed');
+        wp_schedule_single_event(time() + 15 * MINUTE_IN_SECONDS, 'icvaac_update_product_feed');
     }
 
     /**
@@ -224,9 +218,9 @@ class WCACP_Product_Feed {
         global $wpdb;
 
         // Get all transient keys from cache first
-        $cache_group = 'wcacp_feed_transients';
+        $cache_group = 'icvaac_feed_transients';
         $cached_keys = wp_cache_get('transient_keys', $cache_group);
-        
+
         if ($cached_keys && is_array($cached_keys)) {
             foreach ($cached_keys as $key) {
                 delete_transient($key);
@@ -238,7 +232,7 @@ class WCACP_Product_Feed {
         $wpdb->query(
             $wpdb->prepare(
                 "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s",
-                $wpdb->esc_like('_transient_wcacp_product_feed_') . '%'
+                $wpdb->esc_like('_transient_icvaac_product_feed_') . '%'
             )
         );
 
@@ -246,7 +240,7 @@ class WCACP_Product_Feed {
         $wpdb->query(
             $wpdb->prepare(
                 "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s",
-                $wpdb->esc_like('_transient_timeout_wcacp_product_feed_') . '%'
+                $wpdb->esc_like('_transient_timeout_icvaac_product_feed_') . '%'
             )
         );
     }
@@ -258,7 +252,7 @@ class WCACP_Product_Feed {
         $this->clear_feed_cache();
 
         // Schedule immediate cache update
-        wp_schedule_single_event(time() + 60, 'wcacp_update_product_feed');
+        wp_schedule_single_event(time() + 60, 'icvaac_update_product_feed');
     }
 
     /**

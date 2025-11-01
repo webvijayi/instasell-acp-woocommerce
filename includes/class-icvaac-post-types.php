@@ -9,9 +9,9 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Class WCACP_Post_Types
+ * Class ICVAAC_Post_Types
  */
-class WCACP_Post_Types {
+class ICVAAC_Post_Types {
 
     /**
      * Initialize the post types
@@ -27,8 +27,8 @@ class WCACP_Post_Types {
         register_post_type('acp_checkout_session',
             array(
                 'labels' => array(
-                    'name' => __('ACP Checkout Sessions', 'acp-instant-checkout-for-woocommerce'),
-                    'singular_name' => __('ACP Checkout Session', 'acp-instant-checkout-for-woocommerce'),
+                    'name' => __('ACP Checkout Sessions', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'),
+                    'singular_name' => __('ACP Checkout Session', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'),
                 ),
                 'public' => false,
                 'has_archive' => false,
@@ -39,4 +39,4 @@ class WCACP_Post_Types {
     }
 }
 
-WCACP_Post_Types::init();
+ICVAAC_Post_Types::init();

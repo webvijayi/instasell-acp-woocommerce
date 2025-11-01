@@ -1,20 +1,20 @@
-=== InstaSell with ACP for WooCommerce ===
+=== Instant Checkout via ACP Agentic Commerce for WooCommerce ===
 Contributors: webvijayi
-Tags: chatgpt, acp, checkout, ai-commerce, stripe, selling
+Tags: chatgpt, acp, checkout, woocommerce, stripe
 Requires at least: 5.0
 Tested up to: 6.8
-Stable tag: 1.0.4
+Stable tag: 1.0.0
 Requires PHP: 7.4
 WC requires at least: 5.0
 WC tested up to: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Enable the Agentic Commerce Protocol (ACP) allowing "Buy it in ChatGPT" functionality - help WooCommerce store owners sell more with AI-powered checkout.
+Enable "Buy it in ChatGPT" with Agentic Commerce Protocol (ACP) for your WooCommerce store. AI-powered checkout integration.
 
 == Description ==
 
-InstaSell enables any WooCommerce-powered website to participate in the **Agentic Commerce Protocol (ACP)**—the open standard that powers **"Buy it in ChatGPT" and other AI agent-driven checkouts**.
+Instant Checkout ACP enables any WooCommerce-powered website to participate in the **Agentic Commerce Protocol (ACP)**—the open standard that powers **"Buy it in ChatGPT" and other AI agent-driven checkouts**.
 
 **Developed by Web Vijayi** to help WooCommerce store owners tap into the future of AI-powered commerce.
 
@@ -29,15 +29,15 @@ InstaSell enables any WooCommerce-powered website to participate in the **Agenti
 
 The Agentic Commerce Protocol (ACP) is an open standard developed to enable AI agents to interact with e-commerce platforms. This plugin implements the ACP specification to allow your WooCommerce store to work with ChatGPT and other ACP-compatible AI agents.
 
-= Why InstaSell? =
+= Why Instant Checkout ACP? =
 
-InstaSell focuses on helping store owners **sell more** by tapping into emerging AI-powered shopping channels. As AI agents become the new way customers discover and purchase products, InstaSell ensures your WooCommerce store is ready.
+Instant Checkout ACP focuses on helping store owners **sell more** by tapping into emerging AI-powered shopping channels. As AI agents become the new way customers discover and purchase products, Instant Checkout ACP ensures your WooCommerce store is ready.
 
 == Installation ==
 
-1.  Upload the plugin files to the `/wp-content/plugins/instasell-acp-woocommerce` directory, or install the plugin through the WordPress plugins screen directly.
+1.  Upload the plugin files to the `/wp-content/plugins/instant-checkout-via-acp-agentic-commerce-for-woocommerce` directory, or install the plugin through the WordPress plugins screen directly.
 2.  Activate the plugin through the 'Plugins' screen in WordPress.
-3.  Go to **Settings > InstaSell ACP** to configure the plugin.
+3.  Go to **Settings > Instant Checkout ACP ACP** to configure the plugin.
 
 == Configuration ==
 
@@ -65,7 +65,7 @@ Yes, a Stripe account is required for payment processing.
 
 = Where can I find my product feed? =
 
-Your product feed is available at `https://yourdomain.com/wp-json/instsl/v1/product-feed`.
+Your product feed is available at `https://yourdomain.com/wp-json/icvaac/v1/product-feed`.
 
 = Is this plugin free? =
 
@@ -86,50 +86,21 @@ This plugin is developed and maintained by Web Vijayi (founded by Lokesh Motwani
 
 == Changelog ==
 
-= 1.0.4 =
-*   **CRITICAL FIX:** Resolved "Plugin file does not exist" error using trigger_error() instead of wp_die()
-*   Implemented WordPress best practice for dependency checking
-*   Uses E_USER_ERROR to cleanly prevent activation if WooCommerce is missing
-*   WordPress now automatically handles activation failure without state issues
-
-= 1.0.3 =
-*   **CRITICAL FIX:** Fixed "Plugin file does not exist" error on activation
-*   Improved WooCommerce dependency check to use wp_die() instead of deactivate_plugins()
-*   Now shows proper error page with "Back" link if WooCommerce is missing
-*   Prevents plugin activation confusion and WordPress state issues
-
-= 1.0.2 =
-*   **CRITICAL FIX:** Added WooCommerce dependency checking with admin notices
-*   Plugin now displays clear error message if WooCommerce is not installed
-*   Prevents plugin activation if WooCommerce is missing (backward compatibility for WordPress < 6.5)
-*   Shows admin notice with installation link if WooCommerce is deactivated
-*   Prevents fatal errors on sites without WooCommerce
-
-= 1.0.1 =
-*   Updated plugin name to comply with WordPress.org guidelines (InstaSell branding)
-*   Updated Stripe PHP SDK to version 18.0
-*   Added "Requires Plugins" header for WooCommerce dependency
-*   Improved prefix naming to avoid conflicts (INSTSL)
-*   Updated all REST API endpoints to use instsl/v1 namespace
-*   Enhanced documentation and setup instructions
-*   Clarified authorship (Web Vijayi)
-
 = 1.0.0 =
-*   Initial release.
+*   Initial release
+*   Full Agentic Commerce Protocol (ACP) implementation
+*   REST API endpoints for ChatGPT integration
+*   Automatic product feed generation
+*   Stripe payment processing with PCI-compliant tokenization
+*   WooCommerce dependency checking with proper error handling
+*   Modern admin interface with setup wizard
+*   Support for WordPress 5.0+ and WooCommerce 5.0+
+*   Cross-platform compatible WordPress.org package
 
 == Upgrade Notice ==
 
-= 1.0.4 =
-CRITICAL! FINALLY FIXES the activation error properly using WordPress best practices. If v1.0.3 didn't work, this will. Update NOW!
-
-= 1.0.3 =
-CRITICAL! Fixes "Plugin file does not exist" error. If you experienced activation issues, this update resolves them. Update immediately.
-
-= 1.0.2 =
-Critical bug fix! Adds WooCommerce dependency checking to prevent fatal errors. Highly recommended update for all users.
-
-= 1.0.1 =
-Important update for WordPress.org compliance. Updates naming conventions and Stripe library. Please reconfigure your API keys after updating.
+= 1.0.0 =
+Initial release. Enable "Buy it in ChatGPT" for your WooCommerce store!
 
 == About Web Vijayi ==
 

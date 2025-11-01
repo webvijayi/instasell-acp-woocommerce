@@ -1,29 +1,438 @@
-/* ChatGPT Instant Checkout - ACP Integration - Admin Styles */
+/* Instant Checkout via ACP Agentic Commerce for WooCommerce - Admin Styles */
 
-.wcacp-admin-info {
-    margin-top: 30px;
-    padding: 20px;
-    background: #f8f9fa;
-    border: 1px solid #e9ecef;
-    border-radius: 4px;
+/* Header */
+.icvaac-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    margin: -10px -20px 30px -20px;
+    padding: 30px 40px;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
 }
 
-.wcacp-admin-info h3 {
-    margin-top: 0;
-    color: #495057;
+.icvaac-header-content {
+    max-width: 1200px;
 }
 
-.wcacp-admin-info code {
-    background: #fff;
-    padding: 2px 6px;
-    border-radius: 3px;
-    border: 1px solid #dee2e6;
+.icvaac-title {
+    color: #ffffff;
+    font-size: 32px;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-.wcacp-admin-info p {
-    margin-bottom: 10px;
+.icvaac-icon {
+    font-size: 36px;
+    width: 36px;
+    height: 36px;
 }
 
-.wcacp-settings-section {
+.icvaac-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 16px;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Layout */
+.icvaac-layout {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 30px;
+    max-width: 1400px;
+}
+
+.icvaac-main-content {
+    min-width: 0;
+}
+
+.icvaac-sidebar {
+    min-width: 0;
+}
+
+/* Cards */
+.icvaac-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 25px;
     margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease;
+}
+
+.icvaac-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.icvaac-card h2 {
+    margin: 0 0 20px 0;
+    font-size: 22px;
+    font-weight: 600;
+    color: #1f2937;
+    border-bottom: 2px solid #f3f4f6;
+    padding-bottom: 15px;
+}
+
+.icvaac-card h3 {
+    margin: 0 0 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #374151;
+}
+
+/* Card Variants */
+.icvaac-card-info {
+    border-left: 4px solid #3b82f6;
+    background: #eff6ff;
+}
+
+.icvaac-card-primary {
+    border-left: 4px solid #8b5cf6;
+    background: #f5f3ff;
+}
+
+.icvaac-card-success {
+    border-left: 4px solid #10b981;
+    background: #f0fdf4;
+    text-align: center;
+}
+
+.icvaac-card-light {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    text-align: center;
+}
+
+/* Setup Steps */
+.icvaac-steps {
+    counter-reset: step-counter;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.icvaac-steps li {
+    counter-increment: step-counter;
+    position: relative;
+    padding: 20px 20px 20px 60px;
+    margin-bottom: 15px;
+    background: #f9fafb;
+    border-radius: 6px;
+    border-left: 4px solid #667eea;
+}
+
+.icvaac-steps li:before {
+    content: counter(step-counter);
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    width: 32px;
+    height: 32px;
+    background: #667eea;
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.icvaac-steps li strong {
+    display: block;
+    color: #1f2937;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.icvaac-steps li p {
+    margin: 0;
+    color: #6b7280;
+    line-height: 1.6;
+}
+
+.icvaac-steps li a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.icvaac-steps li a:hover {
+    color: #764ba2;
+    text-decoration: underline;
+}
+
+/* API Endpoints */
+.icvaac-endpoint {
+    margin-bottom: 25px;
+}
+
+.icvaac-endpoint:last-child {
+    margin-bottom: 0;
+}
+
+.icvaac-endpoint label {
+    display: block;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.icvaac-url-box {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.icvaac-url-box code {
+    flex: 1;
+    background: #ffffff;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #1f2937;
+    word-break: break-all;
+    display: block;
+}
+
+.icvaac-copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+}
+
+.icvaac-copy-btn .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+.icvaac-endpoint .description {
+    font-size: 13px;
+    color: #6b7280;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Resources */
+.icvaac-resources {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.icvaac-resources li {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.icvaac-resources li:last-child {
+    margin-bottom: 0;
+}
+
+.icvaac-resources .dashicons {
+    color: #8b5cf6;
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.icvaac-resources a {
+    color: #374151;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.icvaac-resources a:hover {
+    color: #8b5cf6;
+    text-decoration: underline;
+}
+
+/* Review Button */
+.icvaac-review-btn {
+    width: 100%;
+    height: auto !important;
+    padding: 12px 20px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    margin-top: 15px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #10b981 !important;
+    border-color: #059669 !important;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3) !important;
+    transition: all 0.3s ease !important;
+}
+
+.icvaac-review-btn:hover {
+    background: #059669 !important;
+    border-color: #047857 !important;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4) !important;
+    transform: translateY(-1px);
+}
+
+.icvaac-review-btn .dashicons {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+}
+
+.icvaac-small-text {
+    font-size: 13px;
+    margin-top: 15px;
+    margin-bottom: 0;
+}
+
+.icvaac-small-text a {
+    color: #6b7280;
+    text-decoration: none;
+}
+
+.icvaac-small-text a:hover {
+    color: #10b981;
+    text-decoration: underline;
+}
+
+/* Plugin Info */
+.icvaac-version,
+.icvaac-author {
+    font-size: 14px;
+    color: #6b7280;
+    margin: 8px 0;
+}
+
+.icvaac-author a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.icvaac-author a:hover {
+    color: #764ba2;
+    text-decoration: underline;
+}
+
+/* Form Styling */
+.icvaac-card .form-table {
+    margin-top: 0;
+}
+
+.icvaac-card .form-table th {
+    padding: 20px 10px 20px 0;
+    font-weight: 600;
+    color: #374151;
+}
+
+.icvaac-card .form-table td {
+    padding: 20px 10px;
+}
+
+.icvaac-card input[type="text"],
+.icvaac-card input[type="password"] {
+    width: 100%;
+    max-width: 400px;
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.icvaac-card input[type="text"]:focus,
+.icvaac-card input[type="password"]:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    outline: none;
+}
+
+.icvaac-card input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+}
+
+.icvaac-card .submit {
+    margin: 20px 0 0 0;
+    padding: 0;
+}
+
+.icvaac-card .button-primary {
+    background: #667eea !important;
+    border-color: #5a67d8 !important;
+    padding: 12px 30px !important;
+    height: auto !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3) !important;
+    transition: all 0.3s ease !important;
+}
+
+.icvaac-card .button-primary:hover {
+    background: #5a67d8 !important;
+    border-color: #4c51bf !important;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4) !important;
+    transform: translateY(-1px);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1200px) {
+    .icvaac-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .icvaac-sidebar {
+        order: 2;
+    }
+}
+
+@media screen and (max-width: 782px) {
+    .icvaac-header {
+        margin: -10px -10px 20px -10px;
+        padding: 20px;
+    }
+
+    .icvaac-title {
+        font-size: 24px;
+    }
+
+    .icvaac-subtitle {
+        font-size: 14px;
+    }
+
+    .icvaac-layout {
+        gap: 20px;
+    }
+
+    .icvaac-card {
+        padding: 20px;
+    }
+
+    .icvaac-steps li {
+        padding: 15px 15px 15px 50px;
+    }
+
+    .icvaac-url-box {
+        flex-direction: column;
+    }
+
+    .icvaac-copy-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Legacy Support */
+.wcacp-admin-info,
+.icvaac-admin-info {
+    display: none !important;
 }

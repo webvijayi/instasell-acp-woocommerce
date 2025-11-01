@@ -1,6 +1,6 @@
 {
-    "name": "webvijayi/instasell-acp-woocommerce",
-    "description": "InstaSell - WooCommerce integration for the Agentic Commerce Protocol (ACP) enabling 'Buy it in ChatGPT' functionality to help store owners sell more",
+    "name": "webvijayi/instant-checkout-via-acp-agentic-commerce-for-woocommerce",
+    "description": "Instant Checkout via ACP Agentic Commerce - WooCommerce integration for the Agentic Commerce Protocol (ACP) enabling 'Buy it in ChatGPT' functionality",
     "type": "wordpress-plugin",
     "license": "GPL-2.0-or-later",
     "authors": [
@@ -17,7 +17,7 @@
     },
     "autoload": {
         "psr-4": {
-            "WebVijayi\\InstaSell\\": "includes/"
+            "WebVijayi\\InstantCheckoutACP\\": "includes/"
         }
     },
     "config": {

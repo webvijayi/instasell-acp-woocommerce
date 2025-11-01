@@ -1,22 +1,52 @@
 # Files to exclude from distribution zip
 /.git
+/.github
 /.gitattributes
 /.gitignore
+/.distignore
+/.kiro
+
+# Build and development files
 /build
 /build.sh
 /build.bat
 /build-exclude.txt
+/create-zip.php
+/create-zip.ps1
+/composer.phar
+/composer-setup.php
+/composer.lock
+/cacert.pem
+
+# Testing files
 /phpcs.xml
 /phpunit.xml
 /tests
-/.DS_Store
 /node_modules
-/.distignore
-/composer.phar
-/composer-setup.php
-/cacert.pem
-/.github
 
-# Exclude all .md files except README.md
+# System files
+/.DS_Store
+/Thumbs.db
+
+# Documentation files (keep only README.md and readme.txt)
 *.md
 !README.md
+/CLAUDE.md
+/WORDPRESS-ORG-*.md
+/BUILD-GUIDE.md
+/FINAL-COMPLIANCE-STATUS.md
+/FIXES-SUMMARY.md
+/INSTALL.md
+/LOCAL-SETUP.md
+/MANUAL-BUILD-INSTRUCTIONS.md
+/PRE-PUSH-CHECKLIST.md
+/PRODUCTION-READY-CHECKLIST.md
+/QUICKSTART.md
+/RELEASE-CHECKLIST.md
+/SLUG-RENAME-REQUIRED.md
+
+# Old/deprecated files (should already be excluded from git)
+/acp-instant-checkout-for-woocommerce.php
+/webvijayi-ai-checkout-acp-woocommerce.php
+/includes/class-wcacp-*.php
+/includes/class-wvacp-*.php
