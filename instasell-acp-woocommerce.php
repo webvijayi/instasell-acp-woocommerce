@@ -3,7 +3,7 @@
  * Plugin Name: InstaSell with ACP for WooCommerce
  * Plugin URI:  https://github.com/webvijayi/instasell-acp-woocommerce
  * Description: Enable "Buy it in ChatGPT" using the Agentic Commerce Protocol (ACP). Seamless AI-powered checkout integration helping WooCommerce store owners sell more.
- * Version:     1.0.3
+ * Version:     1.0.4
  * Author:      Web Vijayi
  * Author URI:  https://webvijayi.com
  * License:     GPL-2.0-or-later
@@ -60,24 +60,18 @@ function instsl_woocommerce_missing_notice() {
 
 /**
  * Check for WooCommerce on plugin activation.
- * Dies with error message if WooCommerce is not active.
+ * Triggers error if WooCommerce is not active.
  */
 function instsl_activation_check() {
     if (!class_exists('WooCommerce')) {
-        // Deactivate the plugin
-        deactivate_plugins(plugin_basename(__FILE__));
-
-        // Die with error message
-        wp_die(
-            '<h1>' . esc_html__('Plugin Activation Error', 'instasell-acp-woocommerce') . '</h1>' .
-            '<p><strong>' . esc_html__('InstaSell with ACP for WooCommerce', 'instasell-acp-woocommerce') . '</strong> ' .
-            esc_html__('requires WooCommerce to be installed and active.', 'instasell-acp-woocommerce') . '</p>' .
-            '<p>' . sprintf(
-                wp_kses_post(__('Please install and activate <a href="%s" target="_blank">WooCommerce</a> first, then try activating this plugin again.', 'instasell-acp-woocommerce')),
+        // Trigger a fatal error to prevent activation
+        // WordPress will automatically prevent activation and show the error message
+        @trigger_error(
+            sprintf(
+                __('<strong>InstaSell with ACP for WooCommerce</strong> requires WooCommerce to be installed and active. Please install and activate <a href="%s" target="_blank">WooCommerce</a> first, then try activating this plugin again.', 'instasell-acp-woocommerce'),
                 'https://wordpress.org/plugins/woocommerce/'
-            ) . '</p>',
-            esc_html__('Plugin Activation Error', 'instasell-acp-woocommerce'),
-            array('back_link' => true)
+            ),
+            E_USER_ERROR
         );
     }
 }
@@ -108,7 +102,7 @@ final class INSTSL_Checkout {
      *
      * @var string
      */
-    public $version = '1.0.3';
+    public $version = '1.0.4';
 
     /**
      * Constructor.
