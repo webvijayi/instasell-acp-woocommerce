@@ -3,7 +3,7 @@ Contributors: webvijayi
 Tags: chatgpt, acp, checkout, ai-commerce, stripe, selling
 Requires at least: 5.0
 Tested up to: 6.8
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 Requires PHP: 7.4
 WC requires at least: 5.0
 WC tested up to: 8.0
@@ -86,6 +86,12 @@ This plugin is developed and maintained by Web Vijayi (founded by Lokesh Motwani
 
 == Changelog ==
 
+= 1.0.3 =
+*   **CRITICAL FIX:** Fixed "Plugin file does not exist" error on activation
+*   Improved WooCommerce dependency check to use wp_die() instead of deactivate_plugins()
+*   Now shows proper error page with "Back" link if WooCommerce is missing
+*   Prevents plugin activation confusion and WordPress state issues
+
 = 1.0.2 =
 *   **CRITICAL FIX:** Added WooCommerce dependency checking with admin notices
 *   Plugin now displays clear error message if WooCommerce is not installed
@@ -106,6 +112,9 @@ This plugin is developed and maintained by Web Vijayi (founded by Lokesh Motwani
 *   Initial release.
 
 == Upgrade Notice ==
+
+= 1.0.3 =
+CRITICAL! Fixes "Plugin file does not exist" error. If you experienced activation issues, this update resolves them. Update immediately.
 
 = 1.0.2 =
 Critical bug fix! Adds WooCommerce dependency checking to prevent fatal errors. Highly recommended update for all users.

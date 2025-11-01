@@ -3,7 +3,7 @@
  * Plugin Name: InstaSell with ACP for WooCommerce
  * Plugin URI:  https://github.com/webvijayi/instasell-acp-woocommerce
  * Description: Enable "Buy it in ChatGPT" using the Agentic Commerce Protocol (ACP). Seamless AI-powered checkout integration helping WooCommerce store owners sell more.
- * Version:     1.0.2
+ * Version:     1.0.3
  * Author:      Web Vijayi
  * Author URI:  https://webvijayi.com
  * License:     GPL-2.0-or-later
@@ -59,48 +59,31 @@ function instsl_woocommerce_missing_notice() {
 }
 
 /**
- * Deactivate plugin if WooCommerce is not active.
+ * Check for WooCommerce on plugin activation.
+ * Dies with error message if WooCommerce is not active.
  */
-function instsl_deactivate_on_woocommerce_missing() {
+function instsl_activation_check() {
     if (!class_exists('WooCommerce')) {
+        // Deactivate the plugin
         deactivate_plugins(plugin_basename(__FILE__));
 
-        // Prevent "Plugin activated" notice
-        if (isset($_GET['activate'])) {
-            unset($_GET['activate']);
-        }
-
-        add_action('admin_notices', 'instsl_woocommerce_deactivation_notice');
+        // Die with error message
+        wp_die(
+            '<h1>' . esc_html__('Plugin Activation Error', 'instasell-acp-woocommerce') . '</h1>' .
+            '<p><strong>' . esc_html__('InstaSell with ACP for WooCommerce', 'instasell-acp-woocommerce') . '</strong> ' .
+            esc_html__('requires WooCommerce to be installed and active.', 'instasell-acp-woocommerce') . '</p>' .
+            '<p>' . sprintf(
+                wp_kses_post(__('Please install and activate <a href="%s" target="_blank">WooCommerce</a> first, then try activating this plugin again.', 'instasell-acp-woocommerce')),
+                'https://wordpress.org/plugins/woocommerce/'
+            ) . '</p>',
+            esc_html__('Plugin Activation Error', 'instasell-acp-woocommerce'),
+            array('back_link' => true)
+        );
     }
 }
 
-/**
- * Display notice when plugin is deactivated due to missing WooCommerce.
- */
-function instsl_woocommerce_deactivation_notice() {
-    ?>
-    <div class="notice notice-error">
-        <p>
-            <strong><?php esc_html_e('InstaSell with ACP for WooCommerce', 'instasell-acp-woocommerce'); ?></strong>
-            <?php esc_html_e('has been deactivated because WooCommerce is not installed or active.', 'instasell-acp-woocommerce'); ?>
-        </p>
-        <p>
-            <?php
-            /* translators: %s: WooCommerce plugin URL */
-            echo wp_kses_post(
-                sprintf(
-                    __('Please install and activate <a href="%s" target="_blank">WooCommerce</a> first, then activate InstaSell.', 'instasell-acp-woocommerce'),
-                    'https://wordpress.org/plugins/woocommerce/'
-                )
-            );
-            ?>
-        </p>
-    </div>
-    <?php
-}
-
 // Register activation hook to check for WooCommerce
-register_activation_hook(__FILE__, 'instsl_deactivate_on_woocommerce_missing');
+register_activation_hook(__FILE__, 'instsl_activation_check');
 
 // Check if WooCommerce gets deactivated
 add_action('admin_init', function() {
@@ -125,7 +108,7 @@ final class INSTSL_Checkout {
      *
      * @var string
      */
-    public $version = '1.0.2';
+    public $version = '1.0.3';
 
     /**
      * Constructor.
