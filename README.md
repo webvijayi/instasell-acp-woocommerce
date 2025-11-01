@@ -10,7 +10,7 @@ Download the latest installable version from the [Releases page](https://github.
 **Tags:** woocommerce, chatgpt, acp, agentic-commerce, checkout, ai
 **Requires at least:** 5.0
 **Tested up to:** 6.8
-**Stable tag:** 1.0.4
+**Stable tag:** 1.0.0
 **Requires PHP:** 7.4
 **WC requires at least:** 5.0
 **WC tested up to:** 8.0
