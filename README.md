@@ -1,5 +1,7 @@
 # InstaSell with ACP for WooCommerce
 
+> **📢 WordPress.org Status:** This plugin is currently **under review** for submission to the WordPress.org Plugin Directory. Once approved, it will be available for one-click installation directly from your WordPress admin.
+
 ## Download
 
 Download the latest installable version from the [Releases page](https://github.com/webvijayi/instasell-acp-woocommerce/releases).
@@ -8,7 +10,7 @@ Download the latest installable version from the [Releases page](https://github.
 **Tags:** woocommerce, chatgpt, acp, agentic-commerce, checkout, ai
 **Requires at least:** 5.0
 **Tested up to:** 6.8
-**Stable tag:** 1.0.1
+**Stable tag:** 1.0.2
 **Requires PHP:** 7.4
 **WC requires at least:** 5.0
 **WC tested up to:** 8.0
