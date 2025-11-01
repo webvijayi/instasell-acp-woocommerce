@@ -9,20 +9,14 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Class WCACP_Checkout_Session
+ * Class ICVAAC_Checkout_Session
  */
-class WCACP_Checkout_Session {
-
-    /**
-     * Plugin instance
-     */
-    private $plugin;
+class ICVAAC_Checkout_Session {
 
     /**
      * Constructor
      */
     public function __construct() {
-        $this->plugin = woocommerce_acp_instant_checkout();
         $this->init();
     }
 
@@ -453,10 +447,10 @@ class WCACP_Checkout_Session {
     private function process_payment($session_id, $payment_data, $session_data) {
         // Load Stripe
         if (!class_exists('\Stripe\Stripe')) {
-            require_once $this->plugin->get_plugin_dir() . 'vendor/autoload.php';
+            require_once ICVAAC_PLUGIN_DIR . 'vendor/autoload.php';
         }
 
-        \Stripe\Stripe::setApiKey(get_option('wcacp_stripe_secret_key'));
+        \Stripe\Stripe::setApiKey(get_option('icvaac_stripe_secret_key'));
 
         try {
             // Create payment intent

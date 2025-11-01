@@ -1,16 +1,16 @@
 /**
- * ChatGPT Instant Checkout - ACP Integration - Admin Scripts
+ * Instant Checkout via ACP Agentic Commerce for WooCommerce - Admin Scripts
  */
 
 jQuery(document).ready(function($) {
     'use strict';
 
     // Test API connection
-    $('.wcacp-test-connection').on('click', function(e) {
+    $('.icvaac-test-connection').on('click', function(e) {
         e.preventDefault();
 
         var $button = $(this);
-        var $result = $('#wcacp-connection-result');
+        var $result = $('#icvaac-connection-result');
         var type = $button.data('type');
 
         $button.prop('disabled', true).text('Testing...');
@@ -20,8 +20,8 @@ jQuery(document).ready(function($) {
             url: ajaxurl,
             type: 'POST',
             data: {
-                action: 'wcacp_test_connection',
-                nonce: wcacp_admin.nonce,
+                action: 'icvaac_test_connection',
+                nonce: icvaac_admin.nonce,
                 type: type
             },
             success: function(response) {
@@ -41,7 +41,7 @@ jQuery(document).ready(function($) {
     });
 
     // Copy to clipboard
-    $('.wcacp-copy-to-clipboard').on('click', function(e) {
+    $('.icvaac-copy-btn').on('click', function(e) {
         e.preventDefault();
 
         var $button = $(this);
@@ -62,11 +62,11 @@ jQuery(document).ready(function($) {
     });
 
     // Generate product feed preview
-    $('#wcacp-generate-feed').on('click', function(e) {
+    $('#icvaac-generate-feed').on('click', function(e) {
         e.preventDefault();
 
         var $button = $(this);
-        var $preview = $('#wcacp-feed-preview');
+        var $preview = $('#icvaac-feed-preview');
 
         $button.prop('disabled', true).text('Generating...');
         $preview.hide();
@@ -75,8 +75,8 @@ jQuery(document).ready(function($) {
             url: ajaxurl,
             type: 'POST',
             data: {
-                action: 'wcacp_generate_feed_preview',
-                nonce: wcacp_admin.nonce
+                action: 'icvaac_generate_feed_preview',
+                nonce: icvaac_admin.nonce
             },
             success: function(response) {
                 if (response.success) {
@@ -95,7 +95,7 @@ jQuery(document).ready(function($) {
     });
 
     // Toggle API key visibility
-    $('.wcacp-toggle-visibility').on('click', function(e) {
+    $('.icvaac-toggle-visibility').on('click', function(e) {
         e.preventDefault();
 
         var $input = $(this).siblings('input[type="password"], input[type="text"]');

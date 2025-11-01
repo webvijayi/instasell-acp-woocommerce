@@ -1,7 +1,7 @@
 @echo off
 REM Build script for creating distributable plugin zip (Windows)
 
-echo Building InstaSell with ACP for WooCommerce plugin...
+echo Building Instant Checkout via ACP Agentic Commerce for WooCommerce plugin...
 
 REM Check if vendor directory exists
 if not exist "vendor" (
@@ -13,7 +13,7 @@ if not exist "vendor" (
 
 REM Create build directory
 set BUILD_DIR=build
-set PLUGIN_SLUG=instasell-acp-woocommerce
+set PLUGIN_SLUG=instant-checkout-via-acp-agentic-commerce-for-woocommerce
 
 echo Cleaning old build...
 if exist "%BUILD_DIR%" rmdir /s /q "%BUILD_DIR%"
@@ -25,18 +25,18 @@ mkdir "%BUILD_DIR%\%PLUGIN_SLUG%\includes"
 
 REM Copy plugin files (excluding old files and dev files)
 echo Copying plugin files...
-xcopy /Y "includes\class-instsl-*.php" "%BUILD_DIR%\%PLUGIN_SLUG%\includes\"
+xcopy /Y "includes\class-icvaac-*.php" "%BUILD_DIR%\%PLUGIN_SLUG%\includes\"
 xcopy /E /I /Y "assets" "%BUILD_DIR%\%PLUGIN_SLUG%\assets\"
 xcopy /E /I /Y "schemas" "%BUILD_DIR%\%PLUGIN_SLUG%\schemas\"
 xcopy /E /I /Y "vendor" "%BUILD_DIR%\%PLUGIN_SLUG%\vendor\"
-copy /Y "instasell-acp-woocommerce.php" "%BUILD_DIR%\%PLUGIN_SLUG%\"
+copy /Y "instant-checkout-via-acp-agentic-commerce-for-woocommerce.php" "%BUILD_DIR%\%PLUGIN_SLUG%\"
 copy /Y "README.md" "%BUILD_DIR%\%PLUGIN_SLUG%\"
 copy /Y "readme.txt" "%BUILD_DIR%\%PLUGIN_SLUG%\"
 copy /Y "composer.json" "%BUILD_DIR%\%PLUGIN_SLUG%\"
 
-REM Create zip (requires PowerShell)
+REM Create zip using PowerShell script (creates proper cross-platform zip with forward slashes)
 echo Creating zip file...
-powershell -Command "Compress-Archive -Path '%BUILD_DIR%\%PLUGIN_SLUG%' -DestinationPath '%PLUGIN_SLUG%.zip' -Force"
+powershell -ExecutionPolicy Bypass -File "%~dp0create-zip.ps1"
 
 echo.
 echo ========================================
@@ -52,6 +52,6 @@ echo 1. Upload this zip to WordPress (Plugins ^> Add New ^> Upload)
 echo 2. Create a GitHub release and attach this zip
 echo 3. Submit to WordPress.org with the new slug reservation
 echo.
-echo IMPORTANT: Request new slug "instasell-acp-woocommerce" from WordPress.org
+echo IMPORTANT: Plugin slug is "instant-checkout-via-acp-agentic-commerce-for-woocommerce"
 echo.
 pause

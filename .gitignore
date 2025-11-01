@@ -7,10 +7,19 @@ vendor/
 composer.phar
 composer-setup.php
 cacert.pem
+composer.lock
 
 # System files
 .DS_Store
 Thumbs.db
+
+# Development/documentation files
+CLAUDE.md
+*.md
+!README.md
+create-zip.php
+create-zip.ps1
+build-exclude.txt
 
 # Old/deprecated files
 acp-instant-checkout-for-woocommerce.php
