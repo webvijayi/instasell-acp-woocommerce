@@ -37,7 +37,7 @@ Instant Checkout ACP focuses on helping store owners **sell more** by tapping in
 
 1.  Upload the plugin files to the `/wp-content/plugins/instant-checkout-via-acp-agentic-commerce-for-woocommerce` directory, or install the plugin through the WordPress plugins screen directly.
 2.  Activate the plugin through the 'Plugins' screen in WordPress.
-3.  Go to **Settings > Instant Checkout ACP ACP** to configure the plugin.
+3.  Go to **Settings > Instant Checkout ACP** to configure the plugin.
 
 == Configuration ==
 

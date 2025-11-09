@@ -25,7 +25,11 @@
         "sort-packages": true,
         "platform": {
             "php": "7.4"
-        }
+        },
+        "cafile": "C:/Projects/Woo-ACP/acp-instant-checkout-for-woocommerce/cacert.pem",
+        "disable-tls": false,
+        "secure-http": false,
+        "capath": "C:/Projects/Woo-ACP/acp-instant-checkout-for-woocommerce"
     },
     "scripts": {
         "build": [

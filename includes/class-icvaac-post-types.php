@@ -24,7 +24,7 @@ class ICVAAC_Post_Types {
      * Register post types
      */
     public static function register_post_types() {
-        register_post_type('acp_checkout_session',
+        register_post_type('icvaac_checkout_session',
             array(
                 'labels' => array(
                     'name' => __('ACP Checkout Sessions', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'),
@@ -32,7 +32,7 @@ class ICVAAC_Post_Types {
                 ),
                 'public' => false,
                 'has_archive' => false,
-                'rewrite' => array('slug' => 'acp-checkout-sessions'),
+                'rewrite' => array('slug' => 'icvaac-checkout-sessions'),
                 'supports' => array('title', 'custom-fields'),
             )
         );

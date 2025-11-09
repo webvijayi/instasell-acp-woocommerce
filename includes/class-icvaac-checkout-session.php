@@ -143,7 +143,7 @@ class ICVAAC_Checkout_Session {
         // Store session in a custom post type
         $session_post_id = wp_insert_post(array(
             'post_title' => $session_id,
-            'post_type' => 'acp_checkout_session',
+            'post_type' => 'icvaac_checkout_session',
             'post_status' => 'publish',
         ));
 
@@ -354,7 +354,7 @@ class ICVAAC_Checkout_Session {
         // Note: Direct meta_key/meta_value query is required for session lookup by unique ID
         // This is the most efficient way to retrieve a session by its ACP session identifier
         $posts = get_posts(array(
-            'post_type' => 'acp_checkout_session',
+            'post_type' => 'icvaac_checkout_session',
             'meta_key' => '_acp_session_id', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Required for ACP session lookup
             'meta_value' => $session_id, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Required for ACP session lookup
             'posts_per_page' => 1,

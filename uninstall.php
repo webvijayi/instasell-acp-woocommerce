@@ -24,7 +24,7 @@ delete_transient('icvaac_product_feed_cache');
 // Remove custom post types
 $posts = get_posts(
     array(
-        'post_type' => 'acp_checkout_session',
+        'post_type' => 'icvaac_checkout_session',
         'numberposts' => -1,
         'post_status' => 'any'
     )
@@ -35,7 +35,7 @@ foreach ($posts as $post) {
 }
 
 // Unregister post type
-unregister_post_type('acp_checkout_session');
+unregister_post_type('icvaac_checkout_session');
 
 // Clear any cached data
 wp_cache_flush();

@@ -29,7 +29,14 @@ xcopy /Y "includes\class-icvaac-*.php" "%BUILD_DIR%\%PLUGIN_SLUG%\includes\"
 xcopy /E /I /Y "assets" "%BUILD_DIR%\%PLUGIN_SLUG%\assets\"
 xcopy /E /I /Y "schemas" "%BUILD_DIR%\%PLUGIN_SLUG%\schemas\"
 xcopy /E /I /Y "vendor" "%BUILD_DIR%\%PLUGIN_SLUG%\vendor\"
+
+REM Remove bin directories from vendor (not needed in production)
+echo Removing vendor bin directories...
+if exist "%BUILD_DIR%\%PLUGIN_SLUG%\vendor\justinrainbow\json-schema\bin" rmdir /s /q "%BUILD_DIR%\%PLUGIN_SLUG%\vendor\justinrainbow\json-schema\bin"
+if exist "%BUILD_DIR%\%PLUGIN_SLUG%\vendor\stripe\stripe-php\bin" rmdir /s /q "%BUILD_DIR%\%PLUGIN_SLUG%\vendor\stripe\stripe-php\bin"
+
 copy /Y "instant-checkout-via-acp-agentic-commerce-for-woocommerce.php" "%BUILD_DIR%\%PLUGIN_SLUG%\"
+copy /Y "uninstall.php" "%BUILD_DIR%\%PLUGIN_SLUG%\"
 copy /Y "README.md" "%BUILD_DIR%\%PLUGIN_SLUG%\"
 copy /Y "readme.txt" "%BUILD_DIR%\%PLUGIN_SLUG%\"
 copy /Y "composer.json" "%BUILD_DIR%\%PLUGIN_SLUG%\"

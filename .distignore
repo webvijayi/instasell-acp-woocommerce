@@ -24,6 +24,10 @@
 /tests
 /node_modules
 
+# Vendor binary files (not needed in production)
+/vendor/justinrainbow/json-schema/bin
+/vendor/*/bin
+
 # System files
 /.DS_Store
 /Thumbs.db

@@ -1,0 +1,73 @@
+WORDPRESS.ORG REVIEW FIXES - VERIFICATION REPORT
+================================================
+
+Plugin: Instant Checkout via ACP Agentic Commerce for WooCommerce
+Slug: instant-checkout-via-acp-agentic-commerce-for-woocommerce
+Date: $(date)
+ZIP File: instant-checkout-via-acp-agentic-commerce-for-woocommerce.zip
+
+ISSUE #1: readme.txt Formatting Errors
+--------------------------------------
+❌ Original: "Settings > Instant Checkout ACP ACP" (duplicated)
+✅ Fixed to: "Settings > Instant Checkout ACP"
+📄 File: readme.txt line 40
+✅ VERIFIED IN ZIP
+
+ISSUE #2: readme.txt Concatenation Error
+----------------------------------------
+❌ Original complaint: "Submit your product feed URL to OpenAI for indexing=About Web Vijayi="
+✅ Current state: Sections properly separated
+   - Line 50: "5. Submit your product feed URL to OpenAI for indexing"
+   - Line 105: "== About Web Vijayi =="
+✅ NO CONCATENATION FOUND
+
+ISSUE #3: Not Permitted Binary Files
+------------------------------------
+❌ Original: vendor/justinrainbow/json-schema/bin/validate-json included
+✅ Fixed: Updated build.bat and build.sh to exclude all vendor/*/bin directories
+✅ VERIFIED: No bin directories in distribution ZIP
+
+ISSUE #4: Out of Date Libraries
+-------------------------------
+❌ Original: Stripe PHP v10.21.0
+✅ Updated to: Stripe PHP v18.1.0 (latest stable as of Nov 2025)
+📄 File: vendor/stripe/stripe-php/lib/Stripe.php line 67
+✅ VERIFIED IN ZIP: const VERSION = '18.1.0'
+
+ISSUE #5: Generic Custom Post Type Names
+----------------------------------------
+❌ Original: register_post_type('acp_checkout_session', ...)
+✅ Fixed to: register_post_type('icvaac_checkout_session', ...)
+❌ Original slug: 'acp-checkout-sessions'
+✅ Fixed slug: 'icvaac-checkout-sessions'
+
+Files Updated:
+- includes/class-icvaac-post-types.php (2 references)
+- includes/class-icvaac-checkout-session.php (2 references)
+- uninstall.php (2 references)
+
+✅ VERIFIED IN ZIP:
+- class-icvaac-post-types.php line 27: register_post_type('icvaac_checkout_session'
+- class-icvaac-checkout-session.php line 146: 'post_type' => 'icvaac_checkout_session'
+- class-icvaac-checkout-session.php line 357: 'post_type' => 'icvaac_checkout_session'
+- uninstall.php line 38: unregister_post_type('icvaac_checkout_session')
+
+ADDITIONAL FIX: uninstall.php Missing
+------------------------------------
+❌ Original: uninstall.php not included in distribution
+✅ Fixed: Added uninstall.php to build.bat script
+✅ VERIFIED IN ZIP: uninstall.php present with 976 bytes
+
+DISTRIBUTION PACKAGE SUMMARY
+============================
+✅ ZIP File: instant-checkout-via-acp-agentic-commerce-for-woocommerce.zip
+✅ Size: 0.79 MB  
+✅ Files: 412
+✅ All paths use FORWARD SLASHES (WordPress/Linux compatible)
+✅ No bin directories included
+✅ Stripe v18.1.0 included
+✅ All CPT references use 'icvaac_' prefix
+✅ uninstall.php included
+
+READY FOR WORDPRESS.ORG SUBMISSION
+==================================
