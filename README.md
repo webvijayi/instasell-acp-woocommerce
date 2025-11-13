@@ -1,10 +1,12 @@
 # Instant Checkout via ACP Agentic Commerce for WooCommerce
 
-> **📢 WordPress.org Status:** This plugin is currently **under review** for submission to the WordPress.org Plugin Directory. Once approved, it will be available for one-click installation directly from your WordPress admin.
+> **✅ Now Available on WordPress.org!** Install directly from your WordPress admin dashboard or download from the [WordPress.org Plugin Directory](https://wordpress.org/plugins/instant-checkout-via-acp-agentic-commerce-for-woocommerce/).
 
 ## Download
 
-Download the latest installable version from the [Releases page](https://github.com/webvijayi/instant-checkout-via-acp-agentic-commerce-for-woocommerce/releases).
+**Official WordPress.org Plugin:** [https://wordpress.org/plugins/instant-checkout-via-acp-agentic-commerce-for-woocommerce/](https://wordpress.org/plugins/instant-checkout-via-acp-agentic-commerce-for-woocommerce/)
+
+Or download the latest installable version from the [Releases page](https://github.com/webvijayi/instant-checkout-via-acp-agentic-commerce-for-woocommerce/releases).
 
 **Contributors:** Web Vijayi
 **Tags:** woocommerce, chatgpt, acp, agentic-commerce, checkout, ai
@@ -43,7 +45,7 @@ The plugin comes pre-packaged with all dependencies. To install:
 2.  In WordPress admin, go to **Plugins > Add New > Upload Plugin**
 3.  Choose the `.zip` file and click **Install Now**
 4.  Click **Activate Plugin**
-5.  Go to **Settings > Instant Checkout ACP ACP** to configure the plugin
+5.  Go to **Settings > Instant Checkout ACP** to configure the plugin
 6.  Apply for OpenAI ACP approval at https://openai.com/index/buy-it-in-chatgpt/
 7.  (After approval) Copy your ACP OpenAI API Key from the OpenAI ACP dashboard
 8.  Enable the ACP API and paste your OpenAI API Key in the settings
@@ -56,7 +58,7 @@ The plugin comes pre-packaged with all dependencies. To install:
 1.  Clone this repository into your `/wp-content/plugins/` directory.
 2.  Run `composer install` to download dependencies (Stripe PHP SDK v18.0+, JSON Schema validator).
 3.  Activate the plugin through the 'Plugins' screen in WordPress.
-4.  Go to **Settings > Instant Checkout ACP ACP** to configure the plugin.
+4.  Go to **Settings > Instant Checkout ACP** to configure the plugin.
 
 ### Building for Distribution
 
@@ -83,7 +85,7 @@ The generated zip can be uploaded directly to WordPress without requiring users 
 
 ## Configuration
 
-After installation, configure the plugin in **Settings > Instant Checkout ACP ACP**:
+After installation, configure the plugin in **Settings > Instant Checkout ACP**:
 
 1. **Enable ACP API** - Toggle to activate the ACP endpoints
 2. **OpenAI API Key** - Your API key from the OpenAI ACP dashboard (after approval)
