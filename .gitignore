@@ -15,6 +15,7 @@ Thumbs.db
 
 # Development/documentation files
 CLAUDE.md
+DESIGN-SYSTEM.md
 *.md
 !README.md
 create-zip.php
