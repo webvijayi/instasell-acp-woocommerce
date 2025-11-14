@@ -3,7 +3,7 @@ Contributors: webvijayi
 Tags: chatgpt, acp, checkout, woocommerce, stripe
 Requires at least: 5.0
 Tested up to: 6.8
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 Requires PHP: 7.4
 WC requires at least: 5.0
 WC tested up to: 8.0
@@ -22,8 +22,12 @@ Instant Checkout ACP enables any WooCommerce-powered website to participate in t
 
 *   **AI-Ready Sales Channel:** Creates all the REST API endpoints required by the ACP, generates a machine-readable product feed, and handles the entire checkout process.
 *   **Sell Directly via ChatGPT:** Your products can be surfaced in ChatGPT search results, and customers can complete purchases natively within the chat experience.
+*   **Per-Product Control:** Choose which products are available for ChatGPT checkout with an easy checkbox on each product edit screen.
+*   **Test Mode:** Safely test your integration before going live - test orders are clearly marked and identifiable.
+*   **Bulk Actions:** Enable or disable multiple products for ChatGPT checkout at once from the product list.
 *   **Secure, PCI-Compliant Commerce:** Utilizes Stripe's secure tokenization for payments, ensuring that sensitive data is handled safely.
 *   **Easy Integration:** Works seamlessly with your existing store setup with minimal configuration required.
+*   **OpenAI Bots Setup Guide:** Built-in instructions for configuring your robots.txt to allow OpenAI crawlers.
 
 = About ACP =
 
@@ -37,7 +41,7 @@ Instant Checkout ACP focuses on helping store owners **sell more** by tapping in
 
 1.  Upload the plugin files to the `/wp-content/plugins/instant-checkout-via-acp-agentic-commerce-for-woocommerce` directory, or install the plugin through the WordPress plugins screen directly.
 2.  Activate the plugin through the 'Plugins' screen in WordPress.
-3.  Go to **Settings > Instant Checkout ACP** to configure the plugin.
+3.  Go to **WooCommerce > AI Checkout** to configure the plugin.
 
 == Configuration ==
 
@@ -51,6 +55,14 @@ After installation:
 
 == Frequently Asked Questions ==
 
+= How do I install this plugin? =
+
+The easiest way is to install directly from WordPress.org:
+1. Go to Plugins > Add New in your WordPress admin
+2. Search for "Instant Checkout ACP"
+3. Click Install Now, then Activate
+4. Go to WooCommerce > AI Checkout to configure
+
 = What is the Agentic Commerce Protocol (ACP)? =
 
 ACP is an open standard that allows AI agents, like ChatGPT, to interact with e-commerce stores in a standardized way. This enables features like "Buy it in ChatGPT."
@@ -62,6 +74,18 @@ Yes, you need to apply at https://openai.com/index/buy-it-in-chatgpt/ and get ap
 = Do I need a Stripe account? =
 
 Yes, a Stripe account is required for payment processing.
+
+= Where are the plugin settings? =
+
+After activation, go to WooCommerce > AI Checkout in your WordPress admin menu.
+
+= Can I control which products appear in ChatGPT? =
+
+Yes! Version 1.1.0 adds per-product controls. Edit any product and use the "ChatGPT Checkout" meta box to enable/disable it. You can also use bulk actions on the product list to enable/disable multiple products at once.
+
+= How do I test the integration safely? =
+
+Enable Test Mode in the plugin settings (WooCommerce > AI Checkout). All orders created while test mode is active will be marked as test orders with clear visual indicators.
 
 = Where can I find my product feed? =
 
@@ -86,6 +110,17 @@ This plugin is developed and maintained by Web Vijayi (founded by Lokesh Motwani
 
 == Changelog ==
 
+= 1.1.0 =
+*   **NEW:** Per-product ChatGPT checkout control - enable/disable individual products
+*   **NEW:** Test mode for safe testing before going live
+*   **NEW:** Bulk actions to enable/disable multiple products at once
+*   **NEW:** OpenAI bots setup instructions panel with robots.txt rules
+*   **IMPROVED:** Settings moved to WooCommerce menu for better organization (WooCommerce > AI Checkout)
+*   **IMPROVED:** Test orders are clearly marked with visual indicators
+*   **IMPROVED:** Product feed now respects per-product settings
+*   **IMPROVED:** Automatic cache invalidation on bulk product updates
+*   Backward compatible: existing products remain enabled by default
+
 = 1.0.0 =
 *   Initial release
 *   Full Agentic Commerce Protocol (ACP) implementation
@@ -98,6 +133,9 @@ This plugin is developed and maintained by Web Vijayi (founded by Lokesh Motwani
 *   Cross-platform compatible WordPress.org package
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+Major update! New per-product controls, test mode, bulk actions, and improved admin interface. Settings moved to WooCommerce menu. Fully backward compatible.
 
 = 1.0.0 =
 Initial release. Enable "Buy it in ChatGPT" for your WooCommerce store!
