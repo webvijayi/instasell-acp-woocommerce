@@ -21,6 +21,7 @@ DESIGN-SYSTEM.md
 create-zip.php
 create-zip.ps1
 build-exclude.txt
+verification-report.txt
 
 # Deployment scripts (contain sensitive info)
 deploy-to-wordpress-org.sh
