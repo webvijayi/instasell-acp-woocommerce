@@ -17,6 +17,19 @@
 /composer-setup.php
 /composer.lock
 /cacert.pem
+/verification-report.txt
+
+# Deployment scripts
+/deploy-to-wordpress-org.sh
+/deploy-now.sh
+/upload-assets.sh
+
+# Image files (only in WordPress.org SVN assets)
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.zip
 
 # Testing files
 /phpcs.xml
