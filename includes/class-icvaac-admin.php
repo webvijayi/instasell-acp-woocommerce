@@ -75,7 +75,8 @@ class ICVAAC_Admin {
      */
     public function redirect_old_settings_url() {
         // Check if user is on old settings page
-        if (isset($_GET['page']) && $_GET['page'] === 'icvaac-settings') {
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- URL parameter check for redirect only, no data processing
+        if (isset($_GET['page']) && sanitize_text_field(wp_unslash($_GET['page'])) === 'icvaac-settings') {
             $current_screen = get_current_screen();
             // If on settings page (not WooCommerce submenu), redirect
             if ($current_screen && strpos($current_screen->id, 'settings_page') !== false) {
@@ -537,8 +538,11 @@ Allow: /</code>
      */
     public function admin_notices() {
         // Show bulk action success messages
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Admin notice display only, no data processing
         if (isset($_GET['icvaac_bulk_action']) && isset($_GET['icvaac_count'])) {
+            // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Admin notice display only, no data processing
             $action = sanitize_text_field(wp_unslash($_GET['icvaac_bulk_action']));
+            // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Admin notice display only, no data processing
             $count = absint($_GET['icvaac_count']);
 
             if ($action === 'enabled') {
@@ -547,7 +551,7 @@ Allow: /</code>
                     <p>
                         <?php
                         /* translators: %d: Number of products enabled */
-                        printf(esc_html(_n('%d product enabled for ChatGPT checkout.', '%d products enabled for ChatGPT checkout.', $count, 'instant-checkout-via-acp-agentic-commerce-for-woocommerce')), $count);
+                        printf(esc_html(_n('%d product enabled for ChatGPT checkout.', '%d products enabled for ChatGPT checkout.', $count, 'instant-checkout-via-acp-agentic-commerce-for-woocommerce')), absint($count));
                         ?>
                     </p>
                 </div>
@@ -558,7 +562,7 @@ Allow: /</code>
                     <p>
                         <?php
                         /* translators: %d: Number of products disabled */
-                        printf(esc_html(_n('%d product disabled for ChatGPT checkout.', '%d products disabled for ChatGPT checkout.', $count, 'instant-checkout-via-acp-agentic-commerce-for-woocommerce')), $count);
+                        printf(esc_html(_n('%d product disabled for ChatGPT checkout.', '%d products disabled for ChatGPT checkout.', $count, 'instant-checkout-via-acp-agentic-commerce-for-woocommerce')), absint($count));
                         ?>
                     </p>
                 </div>
@@ -712,7 +716,7 @@ Allow: /</code>
      */
     public function save_product_meta($product_id) {
         // Check nonce
-        if (!isset($_POST['icvaac_product_meta_nonce']) || !wp_verify_nonce($_POST['icvaac_product_meta_nonce'], 'icvaac_save_product_meta')) {
+        if (!isset($_POST['icvaac_product_meta_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['icvaac_product_meta_nonce'])), 'icvaac_save_product_meta')) {
             return;
         }
 
