@@ -22,6 +22,11 @@ create-zip.php
 create-zip.ps1
 build-exclude.txt
 
+# Deployment scripts (contain sensitive info)
+deploy-to-wordpress-org.sh
+deploy-now.sh
+upload-assets.sh
+
 # Old/deprecated files
 acp-instant-checkout-for-woocommerce.php
 webvijayi-ai-checkout-acp-woocommerce.php
