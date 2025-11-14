@@ -521,6 +521,16 @@ class ICVAAC_Checkout_Session {
         $order->update_meta_data('_acp_session_id', $session_id);
         $order->update_meta_data('_acp_payment_intent_id', $payment_result['payment_intent_id']);
 
+        // Check if test mode is enabled and mark order as test order
+        if (get_option('icvaac_test_mode') === '1') {
+            $order->update_meta_data('_icvaac_test_order', 'yes');
+            $order->add_order_note(
+                __('⚠️ TEST ORDER: This order was created via ACP test mode. This is not a real customer order.', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'),
+                false,
+                true
+            );
+        }
+
         // Save order
         $order->save();
 

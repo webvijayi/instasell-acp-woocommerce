@@ -24,11 +24,14 @@ class ICVAAC_Admin {
      * Initialize the admin interface
      */
     private function init() {
-        // Add admin menu
-        add_action('admin_menu', array($this, 'add_admin_menu'));
+        // Add admin menu (priority 99 to load after WooCommerce core menus)
+        add_action('admin_menu', array($this, 'add_admin_menu'), 99);
 
         // Add settings sections
         add_action('admin_init', array($this, 'register_settings'));
+
+        // Redirect old settings URL to new location
+        add_action('admin_init', array($this, 'redirect_old_settings_url'));
 
         // Enqueue admin scripts and styles
         add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_assets'));
@@ -39,6 +42,16 @@ class ICVAAC_Admin {
         // Add meta boxes for ACP orders
         add_action('add_meta_boxes', array($this, 'add_order_meta_boxes'));
 
+        // Add meta box for products
+        add_action('add_meta_boxes', array($this, 'add_product_meta_boxes'));
+
+        // Save product meta
+        add_action('woocommerce_process_product_meta', array($this, 'save_product_meta'));
+
+        // Add bulk actions for products
+        add_filter('bulk_actions-edit-product', array($this, 'add_bulk_actions'));
+        add_filter('handle_bulk_actions-edit-product', array($this, 'handle_bulk_actions'), 10, 3);
+
         // Add AJAX action for testing connections
         add_action('wp_ajax_icvaac_test_connection', array($this, 'test_connection'));
     }
@@ -47,13 +60,29 @@ class ICVAAC_Admin {
      * Add admin menu
      */
     public function add_admin_menu() {
-        add_options_page(
-            __('Instant Checkout ACP', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'),
-            __('Instant Checkout ACP', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'),
-            'manage_options',
+        add_submenu_page(
+            'woocommerce',
+            __('AI Checkout', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'),
+            __('AI Checkout', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'),
+            'manage_woocommerce',
             'icvaac-settings',
             array($this, 'settings_page')
         );
+    }
+
+    /**
+     * Redirect old settings URL to new location
+     */
+    public function redirect_old_settings_url() {
+        // Check if user is on old settings page
+        if (isset($_GET['page']) && $_GET['page'] === 'icvaac-settings') {
+            $current_screen = get_current_screen();
+            // If on settings page (not WooCommerce submenu), redirect
+            if ($current_screen && strpos($current_screen->id, 'settings_page') !== false) {
+                wp_safe_redirect(admin_url('admin.php?page=icvaac-settings'));
+                exit;
+            }
+        }
     }
 
     /**
@@ -66,6 +95,16 @@ class ICVAAC_Admin {
             array(
                 'type' => 'boolean',
                 'default' => true,
+                'sanitize_callback' => 'rest_sanitize_boolean'
+            )
+        );
+
+        register_setting(
+            'icvaac_settings',
+            'icvaac_test_mode',
+            array(
+                'type' => 'boolean',
+                'default' => false,
                 'sanitize_callback' => 'rest_sanitize_boolean'
             )
         );
@@ -126,6 +165,14 @@ class ICVAAC_Admin {
             'icvaac_api_enabled',
             __('Enable ACP API', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'),
             array($this, 'api_enabled_field_callback'),
+            'icvaac_settings',
+            'icvaac_api_settings'
+        );
+
+        add_settings_field(
+            'icvaac_test_mode',
+            __('Test Mode', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'),
+            array($this, 'test_mode_field_callback'),
             'icvaac_settings',
             'icvaac_api_settings'
         );
@@ -265,6 +312,50 @@ class ICVAAC_Admin {
                         </div>
                     </div>
 
+                    <!-- OpenAI Bots Setup -->
+                    <div class="icvaac-card icvaac-card-warning">
+                        <h3><?php esc_html_e('OpenAI Bots Setup', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'); ?></h3>
+                        <p><?php esc_html_e('Allow OpenAI bots to crawl your product feed by adding these rules to your robots.txt:', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'); ?></p>
+
+                        <div class="icvaac-robots-txt-box" style="background: #f5f5f5; padding: 10px; border-radius: 4px; margin: 10px 0;">
+                            <code id="icvaac-robots-txt" style="display: block; white-space: pre-wrap; font-size: 12px; line-height: 1.5;">
+# Allow OpenAI Bots
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /</code>
+                            <button type="button" class="button button-small icvaac-copy-btn" data-target="icvaac-robots-txt" style="margin-top: 10px;">
+                                <span class="dashicons dashicons-clipboard"></span>
+                                <?php esc_html_e('Copy Rules', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'); ?>
+                            </button>
+                        </div>
+
+                        <p class="description" style="margin-top: 10px;">
+                            <strong><?php esc_html_e('How to add these rules:', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'); ?></strong>
+                        </p>
+
+                        <ul style="margin: 10px 0; padding-left: 20px; list-style: disc;">
+                            <li><?php esc_html_e('Edit your robots.txt file via FTP/cPanel', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'); ?></li>
+                            <li>
+                                <?php esc_html_e('Or use your SEO plugin:', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'); ?>
+                                <ul style="padding-left: 20px; margin: 5px 0;">
+                                    <li><a href="<?php echo esc_url(admin_url('admin.php?page=wpseo_tools&tool=file-editor')); ?>" target="_blank">Yoast SEO</a></li>
+                                    <li><a href="<?php echo esc_url(admin_url('admin.php?page=rank-math&view=file_editor')); ?>" target="_blank">Rank Math</a></li>
+                                    <li><a href="<?php echo esc_url(admin_url('admin.php?page=aioseo-tools&aioseo-tab=robots-txt')); ?>" target="_blank">All in One SEO</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <p class="description">
+                            <strong><?php esc_html_e('Note:', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'); ?></strong>
+                            <?php esc_html_e('If you use an SEO plugin, manage robots.txt through that plugin to avoid conflicts.', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'); ?>
+                        </p>
+                    </div>
+
                     <!-- Resources -->
                     <div class="icvaac-card icvaac-card-primary">
                         <h3><?php esc_html_e('Resources', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'); ?></h3>
@@ -347,6 +438,20 @@ class ICVAAC_Admin {
     }
 
     /**
+     * Test mode field callback
+     */
+    public function test_mode_field_callback() {
+        $value = get_option('icvaac_test_mode', '0');
+        ?>
+        <input type="checkbox" name="icvaac_test_mode" value="1" <?php checked($value, '1'); ?> />
+        <label for="icvaac_test_mode"><?php esc_html_e('Enable test mode (orders will be marked as test orders)', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'); ?></label>
+        <p class="description">
+            <?php esc_html_e('When enabled, all ACP checkout sessions will create test orders. Test orders are marked with a special order note and meta for easy identification. Use this for testing before going live.', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'); ?>
+        </p>
+        <?php
+    }
+
+    /**
      * OpenAI API key field callback
      */
     public function openai_api_key_field_callback() {
@@ -396,7 +501,8 @@ class ICVAAC_Admin {
      * Enqueue admin assets
      */
     public function enqueue_admin_assets($hook) {
-        if ($hook !== 'settings_page_icvaac-settings') {
+        // Check for both old and new hook names for backward compatibility
+        if ($hook !== 'woocommerce_page_icvaac-settings' && $hook !== 'settings_page_icvaac-settings') {
             return;
         }
 
@@ -430,6 +536,49 @@ class ICVAAC_Admin {
      * Admin notices
      */
     public function admin_notices() {
+        // Show bulk action success messages
+        if (isset($_GET['icvaac_bulk_action']) && isset($_GET['icvaac_count'])) {
+            $action = sanitize_text_field(wp_unslash($_GET['icvaac_bulk_action']));
+            $count = absint($_GET['icvaac_count']);
+
+            if ($action === 'enabled') {
+                ?>
+                <div class="notice notice-success is-dismissible">
+                    <p>
+                        <?php
+                        /* translators: %d: Number of products enabled */
+                        printf(esc_html(_n('%d product enabled for ChatGPT checkout.', '%d products enabled for ChatGPT checkout.', $count, 'instant-checkout-via-acp-agentic-commerce-for-woocommerce')), $count);
+                        ?>
+                    </p>
+                </div>
+                <?php
+            } elseif ($action === 'disabled') {
+                ?>
+                <div class="notice notice-success is-dismissible">
+                    <p>
+                        <?php
+                        /* translators: %d: Number of products disabled */
+                        printf(esc_html(_n('%d product disabled for ChatGPT checkout.', '%d products disabled for ChatGPT checkout.', $count, 'instant-checkout-via-acp-agentic-commerce-for-woocommerce')), $count);
+                        ?>
+                    </p>
+                </div>
+                <?php
+            }
+        }
+
+        // Show warning if test mode is enabled
+        if (get_option('icvaac_test_mode') === '1') {
+            ?>
+            <div class="notice notice-warning">
+                <p>
+                    <strong><?php esc_html_e('Instant Checkout ACP - Test Mode Enabled:', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'); ?></strong>
+                    <?php esc_html_e('All ACP orders will be marked as test orders. Disable test mode when you\'re ready to accept live orders.', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'); ?>
+                    <a href="<?php echo esc_url(admin_url('admin.php?page=icvaac-settings')); ?>"><?php esc_html_e('Manage Settings', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'); ?></a>
+                </p>
+            </div>
+            <?php
+        }
+
         // Check if API is enabled but keys are missing
         if (get_option('icvaac_api_enabled') === '1') {
             if (empty(get_option('icvaac_openai_api_key'))) {
@@ -438,7 +587,7 @@ class ICVAAC_Admin {
                     <p>
                         <?php
                         /* translators: %s: URL to plugin settings page */
-                        printf(esc_html__('Instant Checkout ACP: An OpenAI API key is required for ACP functionality. Please <a href="%s">enter your API key</a>.', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'), esc_url(admin_url('options-general.php?page=icvaac-settings')));
+                        printf(esc_html__('Instant Checkout ACP: An OpenAI API key is required for ACP functionality. Please <a href="%s">enter your API key</a>.', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'), esc_url(admin_url('admin.php?page=icvaac-settings')));
                         ?>
                     </p>
                 </div>
@@ -451,7 +600,7 @@ class ICVAAC_Admin {
                     <p>
                         <?php
                         /* translators: %s: URL to plugin settings page */
-                        printf(esc_html__('Instant Checkout ACP: A Stripe secret key is required for payment processing. Please <a href="%s">enter your Stripe keys</a>.', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'), esc_url(admin_url('options-general.php?page=icvaac-settings')));
+                        printf(esc_html__('Instant Checkout ACP: A Stripe secret key is required for payment processing. Please <a href="%s">enter your Stripe keys</a>.', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'), esc_url(admin_url('admin.php?page=icvaac-settings')));
                         ?>
                     </p>
                 </div>
@@ -480,10 +629,23 @@ class ICVAAC_Admin {
     public function order_meta_box_callback($post) {
         $acp_session_id = get_post_meta($post->ID, '_acp_session_id', true);
         $acp_payment_intent_id = get_post_meta($post->ID, '_acp_payment_intent_id', true);
+        $is_test_order = get_post_meta($post->ID, '_icvaac_test_order', true);
 
         if (!$acp_session_id) {
             echo '<p>' . esc_html__('This order was not created through ACP.', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce') . '</p>';
             return;
+        }
+
+        // Show test order warning
+        if ($is_test_order === 'yes') {
+            ?>
+            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 10px; margin-bottom: 15px;">
+                <strong style="color: #856404;">⚠️ <?php esc_html_e('TEST ORDER', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'); ?></strong>
+                <p style="margin: 5px 0 0 0; color: #856404;">
+                    <?php esc_html_e('This order was created in test mode. It is not a real customer order.', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'); ?>
+                </p>
+            </div>
+            <?php
         }
 
         ?>
@@ -497,6 +659,141 @@ class ICVAAC_Admin {
 
         <p><em><?php esc_html_e('This order was created through OpenAI\'s "Buy it in ChatGPT" feature.', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'); ?></em></p>
         <?php
+    }
+
+    /**
+     * Add product meta boxes
+     */
+    public function add_product_meta_boxes() {
+        add_meta_box(
+            'icvaac-product-settings',
+            __('ChatGPT Checkout', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'),
+            array($this, 'product_meta_box_callback'),
+            'product',
+            'side',
+            'default'
+        );
+    }
+
+    /**
+     * Product meta box callback
+     */
+    public function product_meta_box_callback($post) {
+        // Get current value, default to checked (enabled) if not set for backward compatibility
+        $enabled = get_post_meta($post->ID, '_icvaac_enable_chatgpt', true);
+
+        // If meta doesn't exist (empty string), default to enabled
+        $is_enabled = ($enabled === '' || $enabled === 'yes');
+
+        // Add nonce for security
+        wp_nonce_field('icvaac_save_product_meta', 'icvaac_product_meta_nonce');
+        ?>
+        <div class="icvaac-product-chatgpt-option">
+            <p>
+                <label>
+                    <input
+                        type="checkbox"
+                        name="_icvaac_enable_chatgpt"
+                        value="yes"
+                        <?php checked($is_enabled, true); ?>
+                    />
+                    <?php esc_html_e('Enable this product for ChatGPT checkout', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'); ?>
+                </label>
+            </p>
+            <p class="description">
+                <?php esc_html_e('When enabled, this product will appear in the product feed and can be purchased through ChatGPT conversations via OpenAI\'s Agentic Commerce Protocol.', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'); ?>
+            </p>
+        </div>
+        <?php
+    }
+
+    /**
+     * Save product meta
+     */
+    public function save_product_meta($product_id) {
+        // Check nonce
+        if (!isset($_POST['icvaac_product_meta_nonce']) || !wp_verify_nonce($_POST['icvaac_product_meta_nonce'], 'icvaac_save_product_meta')) {
+            return;
+        }
+
+        // Check user permissions
+        if (!current_user_can('edit_product', $product_id)) {
+            return;
+        }
+
+        // Save the meta value
+        if (isset($_POST['_icvaac_enable_chatgpt'])) {
+            update_post_meta($product_id, '_icvaac_enable_chatgpt', 'yes');
+        } else {
+            // If unchecked, save 'no' explicitly
+            update_post_meta($product_id, '_icvaac_enable_chatgpt', 'no');
+        }
+    }
+
+    /**
+     * Add bulk actions to product list
+     */
+    public function add_bulk_actions($actions) {
+        $actions['icvaac_enable_chatgpt'] = __('Enable for ChatGPT checkout', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce');
+        $actions['icvaac_disable_chatgpt'] = __('Disable for ChatGPT checkout', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce');
+        return $actions;
+    }
+
+    /**
+     * Handle bulk actions
+     */
+    public function handle_bulk_actions($redirect_to, $action, $post_ids) {
+        if ($action === 'icvaac_enable_chatgpt') {
+            $count = 0;
+            foreach ($post_ids as $post_id) {
+                // Check if user has permission to edit this product
+                if (current_user_can('edit_product', $post_id)) {
+                    update_post_meta($post_id, '_icvaac_enable_chatgpt', 'yes');
+                    $count++;
+                }
+            }
+
+            // Invalidate product feed cache
+            if (class_exists('ICVAAC_Product_Feed')) {
+                $product_feed = new ICVAAC_Product_Feed();
+                $product_feed->invalidate_feed_cache();
+            }
+
+            // Add admin notice
+            $redirect_to = add_query_arg(
+                array(
+                    'icvaac_bulk_action' => 'enabled',
+                    'icvaac_count' => $count
+                ),
+                $redirect_to
+            );
+        } elseif ($action === 'icvaac_disable_chatgpt') {
+            $count = 0;
+            foreach ($post_ids as $post_id) {
+                // Check if user has permission to edit this product
+                if (current_user_can('edit_product', $post_id)) {
+                    update_post_meta($post_id, '_icvaac_enable_chatgpt', 'no');
+                    $count++;
+                }
+            }
+
+            // Invalidate product feed cache
+            if (class_exists('ICVAAC_Product_Feed')) {
+                $product_feed = new ICVAAC_Product_Feed();
+                $product_feed->invalidate_feed_cache();
+            }
+
+            // Add admin notice
+            $redirect_to = add_query_arg(
+                array(
+                    'icvaac_bulk_action' => 'disabled',
+                    'icvaac_count' => $count
+                ),
+                $redirect_to
+            );
+        }
+
+        return $redirect_to;
     }
 
     /**

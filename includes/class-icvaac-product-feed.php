@@ -108,19 +108,33 @@ class ICVAAC_Product_Feed {
      * Get products for feed
      */
     private function get_products_for_feed($limit, $offset) {
-        // Note: meta_query is required here to filter products by visibility status
-        // This ensures only catalog-visible products appear in the ACP feed for AI agents
+        // Note: meta_query is required here to filter products by visibility status and ChatGPT enablement
+        // This ensures only catalog-visible products that are enabled for ChatGPT appear in the ACP feed for AI agents
         $args = array(
             'status' => 'publish',
             'type' => array('simple', 'variable'),
             'limit' => $limit,
             'offset' => $offset,
-            // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Required for product visibility filtering in ACP feed
+            // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Required for product visibility and ChatGPT filtering in ACP feed
             'meta_query' => array(
+                'relation' => 'AND',
                 array(
                     'key' => '_visibility',
                     'value' => array('catalog', 'visible'),
                     'compare' => 'IN'
+                ),
+                // Filter by ChatGPT enable status (default to enabled if not set for backward compatibility)
+                array(
+                    'relation' => 'OR',
+                    array(
+                        'key' => '_icvaac_enable_chatgpt',
+                        'compare' => 'NOT EXISTS' // Product meta doesn't exist = enabled by default
+                    ),
+                    array(
+                        'key' => '_icvaac_enable_chatgpt',
+                        'value' => 'yes',
+                        'compare' => '='
+                    )
                 )
             )
         );
