@@ -341,14 +341,7 @@ Allow: /</code>
 
                         <ul style="margin: 10px 0; padding-left: 20px; list-style: disc;">
                             <li><?php esc_html_e('Edit your robots.txt file via FTP/cPanel', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'); ?></li>
-                            <li>
-                                <?php esc_html_e('Or use your SEO plugin:', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'); ?>
-                                <ul style="padding-left: 20px; margin: 5px 0;">
-                                    <li><a href="<?php echo esc_url(admin_url('admin.php?page=wpseo_tools&tool=file-editor')); ?>" target="_blank">Yoast SEO</a></li>
-                                    <li><a href="<?php echo esc_url(admin_url('admin.php?page=rank-math&view=file_editor')); ?>" target="_blank">Rank Math</a></li>
-                                    <li><a href="<?php echo esc_url(admin_url('admin.php?page=aioseo-tools&aioseo-tab=robots-txt')); ?>" target="_blank">All in One SEO</a></li>
-                                </ul>
-                            </li>
+                            <li><?php esc_html_e('Or use your SEO plugin (Yoast SEO, Rank Math, All in One SEO, etc.) to manage robots.txt', 'instant-checkout-via-acp-agentic-commerce-for-woocommerce'); ?></li>
                         </ul>
 
                         <p class="description">
