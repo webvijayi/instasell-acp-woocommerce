@@ -3,7 +3,7 @@
  * Plugin Name: Instant Checkout via ACP Agentic Commerce for WooCommerce
  * Plugin URI:  https://github.com/webvijayi/instant-checkout-via-acp-agentic-commerce-for-woocommerce
  * Description: Enable "Buy it in ChatGPT" using the Agentic Commerce Protocol (ACP). Seamless AI-powered instant checkout integration for WooCommerce stores.
- * Version:     1.0.0
+ * Version:     1.1.0
  * Author:      Web Vijayi
  * Author URI:  https://webvijayi.com
  * License:     GPL-2.0-or-later
@@ -94,7 +94,7 @@ final class ICVAAC_Checkout {
      *
      * @var string
      */
-    public $version = '1.0.0';
+    public $version = '1.1.0';
 
     /**
      * Constructor.
