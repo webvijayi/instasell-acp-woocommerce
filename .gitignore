@@ -18,10 +18,18 @@ CLAUDE.md
 DESIGN-SYSTEM.md
 *.md
 !README.md
+!readme.txt
 create-zip.php
 create-zip.ps1
 build-exclude.txt
 verification-report.txt
+.kiro/
+
+# Screenshots and images (only in WordPress.org SVN assets)
+*.png
+*.jpg
+*.jpeg
+*.gif
 
 # Deployment scripts (contain sensitive info)
 deploy-to-wordpress-org.sh
