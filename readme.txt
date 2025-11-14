@@ -1,6 +1,6 @@
 === Instant Checkout via ACP Agentic Commerce for WooCommerce ===
 Contributors: webvijayi
-Tags: chatgpt, acp, checkout, woocommerce, stripe
+Tags: chatgpt, buy in chatgpt, ai checkout, woocommerce, openai, acp, chatgpt woocommerce, conversational commerce, ai shopping, stripe, chatgpt checkout, agentic commerce
 Requires at least: 5.0
 Tested up to: 6.8
 Stable tag: 1.1.0
@@ -10,7 +10,7 @@ WC tested up to: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Enable "Buy it in ChatGPT" with Agentic Commerce Protocol (ACP) for your WooCommerce store. AI-powered checkout integration.
+Enable "Buy in ChatGPT" for WooCommerce. Let customers buy products directly through ChatGPT conversations using OpenAI's Agentic Commerce Protocol (ACP). AI-powered conversational checkout.
 
 == Description ==
 
